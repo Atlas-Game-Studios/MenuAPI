@@ -1,0 +1,11 @@
+name: MenuAPI
+main: com.ags.menuapi.MenuAPI
+version: 2.1.0
+author: [Ajaxan]
+depend: [AttributeAPI]
+api-version: 1.16
+commands:
+   menuAPI:
+      description: admin menuapi commands
+      usage: /menuAPI
+      permission: menuAPI.admin
