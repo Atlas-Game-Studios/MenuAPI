@@ -1,9 +1,9 @@
 name: MenuAPI
 main: com.ags.menuapi.MenuAPI
 version: 2.1.0
-author: [Ajaxan]
+author: [Ajaxan, Aestrus, Tyrriel]
 depend: [AttributeAPI]
-api-version: 1.17
+api-version: 1.18
 commands:
    menuAPI:
       description: admin menuapi commands
