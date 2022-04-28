@@ -1,219 +1,217 @@
 package com.ags.menuapi.MenuItem;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import org.bukkit.Bukkit;
+import com.ags.menuapi.Menu.MenuPage;
+import com.atlasmc.attribute.api.utils.NBTUtil;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import com.ags.menuapi.Menu.MenuPage;
-import com.atlasmc.attribute.api.utils.NBTUtil;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class MenuItem {
-	
-	private MenuItemAction action;
-	private ItemStack item;
-	
-	private MenuPage page;
-	private int slot;
-	
-	public MenuItem(ItemStack item) {
-		this.item = item;
-	}
-	
-	public MenuItem(ItemStack item, String name) {
-		this(item);
-		setMeta(name, null);
-	}
-	
-	public MenuItem(ItemStack item, String name, String... lore) {
-		this(item);
-		ArrayList<String> loreList = new ArrayList<String>(Arrays.asList(lore));
-		setMeta(name, loreList);
-	}
-	
-	public MenuItem(ItemStack item, String name, ArrayList<String> lore) {
-		this(item);
-		setMeta(name, lore);
-	}
-	
-	public MenuItem(Material mat) {
-		this.item = new ItemStack(mat);
-	}
-	
-	public MenuItem(Material mat, String name) {
-		this(mat);
-		setMeta(name, null);
-	}
-	
-	public MenuItem(Material mat, String name, String... lore) {
-		this(mat);
-		ArrayList<String> loreList = new ArrayList<String>(Arrays.asList(lore));
-		setMeta(name, loreList);
-	}
-	
-	public MenuItem(Material mat, String name, ArrayList<String> lore) {
-		this(mat);
-		setMeta(name, lore);
-	}
-	
-	public MenuItem(MenuItemAction action, ItemStack item) {
-		this(item);
-		this.action = action;
-	}
-	
-	public MenuItem(MenuItemAction action, ItemStack item, String name) {
-		this(action,item);
-		setMeta(name,null);
-	}
-	
-	public MenuItem(MenuItemAction action, ItemStack item, String name, String... lore) {
-		this(action,item);
-		ArrayList<String> loreList = new ArrayList<String>(Arrays.asList(lore));
-		setMeta(name,loreList);
-	}
-	
-	public MenuItem(MenuItemAction action, ItemStack item, String name, ArrayList<String> lore) {
-		this(action,item);
-		setMeta(name,lore);
-	}
-	
-	public MenuItem(MenuItemAction action, Material mat) {
-		this(mat);
-		this.action = action;
-	}
-	
-	public MenuItem(MenuItemAction action, Material mat, String name) {
-		this(action,mat);
-		setMeta(name,null);
-	}
-	
-	public MenuItem(MenuItemAction action, Material mat, String name, String... lore) {
-		this(action,mat);
-		ArrayList<String> loreList = new ArrayList<String>(Arrays.asList(lore));
-		setMeta(name,loreList);
-	}
-	
-	public MenuItem(MenuItemAction action, Material mat, String name, ArrayList<String> lore) {
-		this(action,mat);
-		setMeta(name,lore);
-	}
-	
-	private void setMeta(String name, ArrayList<String> lore) {
-		ItemMeta meta = item.getItemMeta();
-		if(name != null) meta.setDisplayName(name);
-		if(lore != null) meta.setLore(lore);
-		meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-		meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
-		item.setItemMeta(meta);
-	}
-	
-	
-	public MenuPage getPage() {
-		return page;
-	}
 
-	public void setPage(MenuPage page) {
-		this.page = page;
-	}
+    private MenuItemAction action;
+    private ItemStack item;
 
-	public int getSlot() {
-		return slot;
-	}
+    private MenuPage page;
+    private int slot;
 
-	public void setSlot(int slot) {
-		this.slot = slot;
-	}
+    public MenuItem(ItemStack item) {
+        this.item = item;
+    }
 
-	public MenuItemAction getAction() {
-		return action;
-	}
-	
-	public void setAction(MenuItemAction action) {
-		this.action = action;
-	}
-	
-	public MenuItem highlight() {
-		ItemMeta meta = item.getItemMeta();
-		meta.addEnchant(Enchantment.DURABILITY, 1, true);
-		meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
-		item.setItemMeta(meta);
-		return this;
-	}
-	
-	public MenuItem unhighlight() {
-		ItemMeta meta = item.getItemMeta();
-		meta.removeEnchant(Enchantment.DURABILITY);
-		item.setItemMeta(meta);
-		return this;
-	}
-	
-	public boolean isHighlighted() {
-		ItemMeta meta = item.getItemMeta();
-		return meta.hasEnchants();
-	}
-	
-	public MenuItem setNBTTag(String tag, Object value) {
-		item = NBTUtil.addTag(item, tag, value);
-		return this;
-	}
-	
-	public Integer getNBTInt(String tag) {
-		return NBTUtil.getInteger(item, tag);
-	}
-	
-	public Boolean getNBTBool(String tag) {
-		return NBTUtil.getBoolean(item,tag);
-	}
-	
-	public String getNBTString(String tag) {
-		return NBTUtil.getString(item,tag);
-	}
-	
-	public boolean hasNBTTag(String tag) {
-		return NBTUtil.hasKey(item, tag);
-	}
-	
-	public ItemStack getItem() {
-		return item;
-	}
+    public MenuItem(ItemStack item, String name) {
+        this(item);
+        setMeta(name, null);
+    }
 
-	public void setItem(ItemStack item) {
-		this.item = item;
-	}
-	
-	public String getName() {
-		return item.getItemMeta().getDisplayName();
-	}
-	
-	public void setName(String name) {
-		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName(name);
-		item.setItemMeta(meta);
-	}
-	
-	public int getAmount() {
-		return item.getAmount();
-	}
-	
-	public void setAmount(int amount) {
-		item.setAmount(amount);
-	}
-	
-	public List<String> getDesc() {
-		return item.getItemMeta().getLore();
-	}
-	
-	public void setDesc(List<String> lines) {
-		ItemMeta meta = item.getItemMeta();
-		meta.setLore(lines);
-		item.setItemMeta(meta);
-	}
-	
+    public MenuItem(ItemStack item, String name, String... lore) {
+        this(item);
+        ArrayList<String> loreList = new ArrayList<String>(Arrays.asList(lore));
+        setMeta(name, loreList);
+    }
+
+    public MenuItem(ItemStack item, String name, ArrayList<String> lore) {
+        this(item);
+        setMeta(name, lore);
+    }
+
+    public MenuItem(Material mat) {
+        this.item = new ItemStack(mat);
+    }
+
+    public MenuItem(Material mat, String name) {
+        this(mat);
+        setMeta(name, null);
+    }
+
+    public MenuItem(Material mat, String name, String... lore) {
+        this(mat);
+        ArrayList<String> loreList = new ArrayList<String>(Arrays.asList(lore));
+        setMeta(name, loreList);
+    }
+
+    public MenuItem(Material mat, String name, ArrayList<String> lore) {
+        this(mat);
+        setMeta(name, lore);
+    }
+
+    public MenuItem(MenuItemAction action, ItemStack item) {
+        this(item);
+        this.action = action;
+    }
+
+    public MenuItem(MenuItemAction action, ItemStack item, String name) {
+        this(action, item);
+        setMeta(name, null);
+    }
+
+    public MenuItem(MenuItemAction action, ItemStack item, String name, String... lore) {
+        this(action, item);
+        ArrayList<String> loreList = new ArrayList<String>(Arrays.asList(lore));
+        setMeta(name, loreList);
+    }
+
+    public MenuItem(MenuItemAction action, ItemStack item, String name, ArrayList<String> lore) {
+        this(action, item);
+        setMeta(name, lore);
+    }
+
+    public MenuItem(MenuItemAction action, Material mat) {
+        this(mat);
+        this.action = action;
+    }
+
+    public MenuItem(MenuItemAction action, Material mat, String name) {
+        this(action, mat);
+        setMeta(name, null);
+    }
+
+    public MenuItem(MenuItemAction action, Material mat, String name, String... lore) {
+        this(action, mat);
+        ArrayList<String> loreList = new ArrayList<String>(Arrays.asList(lore));
+        setMeta(name, loreList);
+    }
+
+    public MenuItem(MenuItemAction action, Material mat, String name, ArrayList<String> lore) {
+        this(action, mat);
+        setMeta(name, lore);
+    }
+
+    private void setMeta(String name, ArrayList<String> lore) {
+        ItemMeta meta = item.getItemMeta();
+        if (name != null) meta.setDisplayName(name);
+        if (lore != null) meta.setLore(lore);
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+        item.setItemMeta(meta);
+    }
+
+
+    public MenuPage getPage() {
+        return page;
+    }
+
+    public void setPage(MenuPage page) {
+        this.page = page;
+    }
+
+    public int getSlot() {
+        return slot;
+    }
+
+    public void setSlot(int slot) {
+        this.slot = slot;
+    }
+
+    public MenuItemAction getAction() {
+        return action;
+    }
+
+    public void setAction(MenuItemAction action) {
+        this.action = action;
+    }
+
+    public MenuItem highlight() {
+        ItemMeta meta = item.getItemMeta();
+        meta.addEnchant(Enchantment.DURABILITY, 1, true);
+        meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+        item.setItemMeta(meta);
+        return this;
+    }
+
+    public MenuItem unhighlight() {
+        ItemMeta meta = item.getItemMeta();
+        meta.removeEnchant(Enchantment.DURABILITY);
+        item.setItemMeta(meta);
+        return this;
+    }
+
+    public boolean isHighlighted() {
+        ItemMeta meta = item.getItemMeta();
+        return meta.hasEnchants();
+    }
+
+    public MenuItem setNBTTag(String tag, Object value) {
+        item = NBTUtil.addTag(item, tag, value);
+        return this;
+    }
+
+    public Integer getNBTInt(String tag) {
+        return NBTUtil.getInteger(item, tag);
+    }
+
+    public Boolean getNBTBool(String tag) {
+        return NBTUtil.getBoolean(item, tag);
+    }
+
+    public String getNBTString(String tag) {
+        return NBTUtil.getString(item, tag);
+    }
+
+    public boolean hasNBTTag(String tag) {
+        return NBTUtil.hasKey(item, tag);
+    }
+
+    public ItemStack getItem() {
+        return item;
+    }
+
+    public void setItem(ItemStack item) {
+        this.item = item;
+    }
+
+    public String getName() {
+        return item.getItemMeta().getDisplayName();
+    }
+
+    public void setName(String name) {
+        ItemMeta meta = item.getItemMeta();
+        meta.setDisplayName(name);
+        item.setItemMeta(meta);
+    }
+
+    public int getAmount() {
+        return item.getAmount();
+    }
+
+    public void setAmount(int amount) {
+        item.setAmount(amount);
+    }
+
+    public List<String> getDesc() {
+        return item.getItemMeta().getLore();
+    }
+
+    public void setDesc(List<String> lines) {
+        ItemMeta meta = item.getItemMeta();
+        meta.setLore(lines);
+        item.setItemMeta(meta);
+    }
+
 }
