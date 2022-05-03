@@ -1,7 +1,6 @@
 package com.ags.menuapi.MenuItem;
 
 import com.ags.menuapi.Menu.MenuPage;
-import com.atlasmc.attribute.api.utils.NBTUtil;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
@@ -32,11 +31,11 @@ public class MenuItem {
 
     public MenuItem(ItemStack item, String name, String... lore) {
         this(item);
-        ArrayList<String> loreList = new ArrayList<String>(Arrays.asList(lore));
+        List<String> loreList = Arrays.asList(lore);
         setMeta(name, loreList);
     }
 
-    public MenuItem(ItemStack item, String name, ArrayList<String> lore) {
+    public MenuItem(ItemStack item, String name, List<String> lore) {
         this(item);
         setMeta(name, lore);
     }
@@ -52,11 +51,11 @@ public class MenuItem {
 
     public MenuItem(Material mat, String name, String... lore) {
         this(mat);
-        ArrayList<String> loreList = new ArrayList<String>(Arrays.asList(lore));
+        List<String> loreList = new ArrayList<>(Arrays.asList(lore));
         setMeta(name, loreList);
     }
 
-    public MenuItem(Material mat, String name, ArrayList<String> lore) {
+    public MenuItem(Material mat, String name, List<String> lore) {
         this(mat);
         setMeta(name, lore);
     }
@@ -73,11 +72,11 @@ public class MenuItem {
 
     public MenuItem(MenuItemAction action, ItemStack item, String name, String... lore) {
         this(action, item);
-        ArrayList<String> loreList = new ArrayList<String>(Arrays.asList(lore));
+        List<String> loreList = Arrays.asList(lore);
         setMeta(name, loreList);
     }
 
-    public MenuItem(MenuItemAction action, ItemStack item, String name, ArrayList<String> lore) {
+    public MenuItem(MenuItemAction action, ItemStack item, String name, List<String> lore) {
         this(action, item);
         setMeta(name, lore);
     }
@@ -94,22 +93,22 @@ public class MenuItem {
 
     public MenuItem(MenuItemAction action, Material mat, String name, String... lore) {
         this(action, mat);
-        ArrayList<String> loreList = new ArrayList<String>(Arrays.asList(lore));
+        List<String> loreList = Arrays.asList(lore);
         setMeta(name, loreList);
     }
 
-    public MenuItem(MenuItemAction action, Material mat, String name, ArrayList<String> lore) {
+    public MenuItem(MenuItemAction action, Material mat, String name, List<String> lore) {
         this(action, mat);
         setMeta(name, lore);
     }
 
-    private void setMeta(String name, ArrayList<String> lore) {
-        ItemMeta meta = item.getItemMeta();
+    private void setMeta(String name, List<String> lore) {
+        ItemMeta meta = this.item.getItemMeta();
         if (name != null) meta.setDisplayName(name);
         if (lore != null) meta.setLore(lore);
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
-        item.setItemMeta(meta);
+        this.item.setItemMeta(meta);
     }
 
 
@@ -157,7 +156,7 @@ public class MenuItem {
         return meta.hasEnchants();
     }
 
-    public MenuItem setNBTTag(String tag, Object value) {
+    /*public MenuItem setNBTTag(String tag, Object value) {
         item = NBTUtil.addTag(item, tag, value);
         return this;
     }
@@ -176,7 +175,7 @@ public class MenuItem {
 
     public boolean hasNBTTag(String tag) {
         return NBTUtil.hasKey(item, tag);
-    }
+    }*/
 
     public ItemStack getItem() {
         return item;
