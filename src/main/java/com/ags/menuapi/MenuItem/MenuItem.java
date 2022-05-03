@@ -22,6 +22,7 @@ public class MenuItem {
 
     public MenuItem(ItemStack item) {
         this.item = item;
+        setMeta(null, null);
     }
 
     public MenuItem(ItemStack item, String name) {
