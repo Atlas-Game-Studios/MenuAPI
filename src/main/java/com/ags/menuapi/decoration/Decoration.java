@@ -2,6 +2,7 @@ package com.ags.menuapi.decoration;
 
 import com.ags.menuapi.Menu.MenuSize;
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -54,6 +55,7 @@ public class Decoration {
             ItemStack item = new ItemStack(mat);
             ItemMeta meta = item.getItemMeta();
             meta.setDisplayName(" ");
+            meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS, ItemFlag.HIDE_ATTRIBUTES);
             item.setItemMeta(meta);
             itemMap[slot] = item;
         }
@@ -67,6 +69,7 @@ public class Decoration {
             ItemStack item = new ItemStack(mat);
             ItemMeta meta = item.getItemMeta();
             meta.setDisplayName(" ");
+            meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS, ItemFlag.HIDE_ATTRIBUTES);
             item.setItemMeta(meta);
             itemMap[slot] = item;
         }
