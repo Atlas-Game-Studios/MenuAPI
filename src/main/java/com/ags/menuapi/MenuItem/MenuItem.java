@@ -1,6 +1,7 @@
 package com.ags.menuapi.MenuItem;
 
 import com.ags.menuapi.Menu.MenuPage;
+import com.ags.menuapi.util.NBTUtil;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
@@ -157,7 +158,7 @@ public class MenuItem {
         return meta.hasEnchants();
     }
 
-    /*public MenuItem setNBTTag(String tag, Object value) {
+    public MenuItem setNBTTag(String tag, Object value) {
         item = NBTUtil.addTag(item, tag, value);
         return this;
     }
@@ -176,7 +177,7 @@ public class MenuItem {
 
     public boolean hasNBTTag(String tag) {
         return NBTUtil.hasKey(item, tag);
-    }*/
+    }
 
     public ItemStack getItem() {
         return item;

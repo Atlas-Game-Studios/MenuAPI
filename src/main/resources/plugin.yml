@@ -2,7 +2,7 @@ name: MenuAPI
 main: com.ags.menuapi.MenuAPI
 version: 2.1.0
 author: [Ajaxan, Aestrus, Tyrriel]
-depend: [AttributeAPI]
+depend: [NBTAPI]
 api-version: 1.18
 commands:
    menuAPI:
