@@ -5,15 +5,16 @@ import com.ags.menuapi.Menu.MenuSize;
 import com.ags.menuapi.MenuItem.MenuItem;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class BackButton {
 
     // This is the static information retrieved from the config file.
     // These are defaults that can be changed for any individual menu.
-    private static HashMap<MenuSize, Integer> backButtonSlots = new HashMap<MenuSize, Integer>();
+    private static Map<MenuSize, Integer> backButtonSlots = new HashMap<>();
     private static MenuItem backButtonItem;
 
-    public static void load(HashMap<MenuSize, Integer> slots, MenuItem item) {
+    public static void load(Map<MenuSize, Integer> slots, MenuItem item) {
         backButtonSlots = slots;
         backButtonItem = item;
     }

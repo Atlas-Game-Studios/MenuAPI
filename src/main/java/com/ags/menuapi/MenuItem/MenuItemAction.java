@@ -5,5 +5,5 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
 public interface MenuItemAction {
-    public void action(MenuPage page, Player clicker, InventoryClickEvent event);
+    void action(MenuPage page, Player clicker, InventoryClickEvent event);
 }

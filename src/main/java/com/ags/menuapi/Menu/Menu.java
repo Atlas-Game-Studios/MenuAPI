@@ -10,8 +10,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public abstract class Menu {
 
@@ -20,7 +20,7 @@ public abstract class Menu {
     public String name;
     public int size;
     public MenuSize menusize;
-    public ArrayList<MenuPage> pages;
+    public List<MenuPage> pages;
 
     private ClickSound clickSound;
 
@@ -31,7 +31,7 @@ public abstract class Menu {
     private NextButton nextButton;
     private PrevButton prevButton;
 
-    private List<PermButton> permButtons = new ArrayList<PermButton>();
+    private final List<PermButton> permButtons = new ArrayList<PermButton>();
 
     public MenuSize getMenuSize() {
         return menusize;
@@ -134,10 +134,9 @@ public abstract class Menu {
      * <br>NOTE: If making a CallbackMenu the MenuItemAction for MenuItems can be ignored. This is only used in an Action Menu
      *
      * @param page   - The page to add this MenuItem to.
-     * @param slot   - The slot on the page to add the MenuItem to.
      * @param mItems - A HashMap<Integer,MenuItem> corresponding to multiple (slot,MenuItem) pairs to add to the menu.
      */
-    public void addItemsToPage(int page, HashMap<Integer, MenuItem> mItems) {
+    public void addItemsToPage(int page, Map<Integer, MenuItem> mItems) {
         MenuPage menupage = pages.get(page);
         menupage.setItems(mItems);
     }
@@ -183,7 +182,6 @@ public abstract class Menu {
      * assign 1:1 values for slots and items. This means updates happen equally as quickly
      * despite what is given.
      *
-     * @param page  - The page the item exists on.
      * @param mItem - The item to update
      */
     public void updateItem(MenuItem mItem) {
@@ -195,7 +193,6 @@ public abstract class Menu {
      * This method also can set the display name of the specific item. To simply update
      * the item or the page it's on use updatePage() or updateItem().
      *
-     * @param page  - The page the item is on.
      * @param mItem - The item to update.
      * @param name  - The new display name to set.
      */
@@ -209,9 +206,8 @@ public abstract class Menu {
      * This method also can set the display name of the specific item. To simply update
      * the item or the page it's on use updatePage() or updateItem().
      *
-     * @param page  - The page the item is on.
-     * @param mItem - The item to update.
-     * @param name  - The new display name to set.
+     * @param mItem  - The item to update.
+     * @param amount - The amount of the item
      */
     public void updateItemAmount(MenuItem mItem, int amount) {
         mItem.setAmount(amount);
@@ -223,7 +219,6 @@ public abstract class Menu {
      * This method also can set the description of the specific item. To simply update
      * the item or the page it's on use updatePage() or updateItem().
      *
-     * @param page  - The page the item is on.
      * @param mItem - The item to update.
      * @param lines - The new description to set.
      */
@@ -237,7 +232,6 @@ public abstract class Menu {
      * This method also can toggle the highlight on the specific item. To simply update
      * the item or the page it's on use updatePage() or updateItem().
      *
-     * @param page  - The page the item is on.
      * @param mItem - The item to update.
      */
     public void updateItemHighligh(MenuItem mItem) {

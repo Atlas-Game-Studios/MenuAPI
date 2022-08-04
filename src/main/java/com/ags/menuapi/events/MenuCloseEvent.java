@@ -10,10 +10,10 @@ public final class MenuCloseEvent extends Event {
     private static final HandlerList handlers = new HandlerList();
 
 
-    private Player player;
-    private Menu menu;
-    private MenuPage page;
-    private int pageNumber;
+    private final Player player;
+    private final Menu menu;
+    private final MenuPage page;
+    private final int pageNumber;
 
 
     public MenuCloseEvent(Player player, MenuPage page) {

@@ -10,19 +10,20 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class ActionMenu extends Menu {
 
-    HashMap<ItemStack, MenuItemAction> actions;
+    Map<ItemStack, MenuItemAction> actions;
 
     public ActionMenu(JavaPlugin plugin, String name, MenuSize menusize, int pages, Decoration decoration) {
         this.plugin = plugin;
         this.name = name;
         this.menusize = menusize;
         this.size = menusize.toNumber();
-        this.pages = new ArrayList<MenuPage>();
+        this.pages = new ArrayList<>();
         this.decoration = decoration;
-        actions = new HashMap<ItemStack, MenuItemAction>();
+        actions = new HashMap<>();
 
         for (int i = 0; i < pages; i++) {
             addPage();
@@ -37,7 +38,7 @@ public class ActionMenu extends Menu {
     }
 
     @Override
-    public void addItemsToPage(int page, HashMap<Integer, MenuItem> mItems) {
+    public void addItemsToPage(int page, Map<Integer, MenuItem> mItems) {
         super.addItemsToPage(page, mItems);
         for (MenuItem mItem : mItems.values()) {
             actions.put(mItem.getItem(), mItem.getAction());

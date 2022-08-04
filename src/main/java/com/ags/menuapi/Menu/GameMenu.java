@@ -10,15 +10,16 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @SuppressWarnings("unchecked")
 public class GameMenu extends AnimatedMenu implements Runnable {
 
-    HashMap<String, Object> gameVariables;
+    Map<String, Object> gameVariables;
 
     public GameMenu(JavaPlugin plugin, String name, MenuSize menusize, Decoration decoration, int animationSpeed) {
         super(plugin, name, menusize, decoration, animationSpeed);
-        gameVariables = new HashMap<String, Object>();
+        gameVariables = new HashMap<>();
     }
 
     public void setVar(String name, Object variable) {

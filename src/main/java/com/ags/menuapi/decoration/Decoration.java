@@ -6,7 +6,7 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Decoration {
 
@@ -37,7 +37,7 @@ public class Decoration {
      * @param mat   - the Material to use as the decoration item
      * @param slots - The custom List of slots to put the decoration Material in.
      */
-    public Decoration(MenuSize size, Material mat, ArrayList<Integer> slots) {
+    public Decoration(MenuSize size, Material mat, List<Integer> slots) {
         this(size);
         setCustomScheme(mat, slots);
     }
@@ -61,7 +61,7 @@ public class Decoration {
         }
     }
 
-    private void setCustomScheme(Material mat, ArrayList<Integer> slots) {
+    private void setCustomScheme(Material mat, List<Integer> slots) {
         for (int i = 0; i < itemMap.length; i++) {
             itemMap[i] = new ItemStack(Material.AIR);
         }

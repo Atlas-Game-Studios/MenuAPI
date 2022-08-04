@@ -19,17 +19,17 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 
 public class MenuPage implements InventoryHolder, Listener {
 
     private final Inventory inv;
-    private int pagenumber;
-    private HashSet<Integer> decorationSlots;
-    private HashBiMap<Integer, MenuItem> items;
-    private HashBiMap<Integer, MenuItem> interacts;
-    private Menu holder;
+    private final int pagenumber;
+    private final HashSet<Integer> decorationSlots;
+    private final HashBiMap<Integer, MenuItem> items;
+    private final HashBiMap<Integer, MenuItem> interacts;
+    private final Menu holder;
 
     public MenuPage(Menu holder, String name, int size, int pagenumber, Decoration decoration) {
         this.holder = holder;
@@ -64,7 +64,7 @@ public class MenuPage implements InventoryHolder, Listener {
         mItem.setSlot(slot);
     }
 
-    public void setItems(HashMap<Integer, MenuItem> mItems) {
+    public void setItems(Map<Integer, MenuItem> mItems) {
         for (Integer slot : mItems.keySet()) {
             setItem(slot, mItems.get(slot));
         }
@@ -106,7 +106,7 @@ public class MenuPage implements InventoryHolder, Listener {
         interact.setSlot(slot);
     }
 
-    public void addInteracts(HashMap<Integer, MenuItem> interact) {
+    public void addInteracts(Map<Integer, MenuItem> interact) {
         for (Integer slot : interact.keySet()) {
             addInteract(slot, interact.get(slot));
         }
@@ -288,7 +288,7 @@ public class MenuPage implements InventoryHolder, Listener {
     }
 
     private boolean isSlotInteractive(InventoryClickEvent event) {
-        return interacts.keySet().contains(event.getRawSlot());
+        return interacts.containsKey(event.getRawSlot());
     }
 
     private boolean isTopInventory(InventoryClickEvent event) {

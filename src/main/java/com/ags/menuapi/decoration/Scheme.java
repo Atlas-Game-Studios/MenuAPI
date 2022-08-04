@@ -13,7 +13,7 @@ public enum Scheme {
         int s = size.toNumber();
         int r = size.toRows();
         int c = size.toColumns();
-        List<Integer> slots = new ArrayList<Integer>();
+        List<Integer> slots = new ArrayList<>();
         switch (this) {
             case BOTTOM:
                 setBottom(slots, s, c);

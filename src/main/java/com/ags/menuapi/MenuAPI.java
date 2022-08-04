@@ -20,6 +20,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 public class MenuAPI extends JavaPlugin {
@@ -30,9 +31,9 @@ public class MenuAPI extends JavaPlugin {
     private static MenuItem nextButtonItem;
     private static MenuItem prevButtonItem;
 
-    private static HashMap<MenuSize, Integer> backButtonSlot;
-    private static HashMap<MenuSize, Integer> nextButtonSlot;
-    private static HashMap<MenuSize, Integer> prevButtonSlot;
+    private static Map<MenuSize, Integer> backButtonSlot;
+    private static Map<MenuSize, Integer> nextButtonSlot;
+    private static Map<MenuSize, Integer> prevButtonSlot;
 
     @Override
     public void onEnable() {
@@ -76,9 +77,9 @@ public class MenuAPI extends JavaPlugin {
         PrevButton.load(prevButtonSlot, prevButtonItem);
     }
 
-    private HashMap<MenuSize, Integer> getSlots(String id) {
+    private Map<MenuSize, Integer> getSlots(String id) {
         FileConfiguration config = this.getConfig();
-        HashMap<MenuSize, Integer> slotmap = new HashMap<MenuSize, Integer>();
+        Map<MenuSize, Integer> slotmap = new HashMap<>();
         slotmap.put(MenuSize.NINE, config.getInt(id + ".9"));
         slotmap.put(MenuSize.ONEEIGHT, config.getInt(id + ".18"));
         slotmap.put(MenuSize.TWOSEVEN, config.getInt(id + ".27"));
@@ -98,11 +99,11 @@ public class MenuAPI extends JavaPlugin {
         FileConfiguration config = this.getConfig();
         Material mat = Material.getMaterial(config.getString(id + ".Material"));
         String name = ChatColor.translateAlternateColorCodes('&', config.getString(id + ".Name"));
-        ArrayList<String> lore = new ArrayList<String>();
+        List<String> lore = new ArrayList<>();
         for (String loreline : config.getStringList(id + ".Lore")) {
             lore.add(ChatColor.translateAlternateColorCodes('&', loreline));
         }
-        if (mat != null && name != null && lore != null) {
+        if (mat != null) {
             return new MenuItem(new ItemStack(mat), name, lore);
         }
         Bukkit.getLogger().info(ChatColor.RED + "[MenuAPI][ERROR]: Incorrect Button Config for: " + id);
@@ -134,9 +135,9 @@ public class MenuAPI extends JavaPlugin {
      * This menu also has a Decoration Scheme. This is made through creating a new Decoration. All menus should
      * also have MenuItems to be functional. These MenuItems can be set later or in an alternate constructor.
      *
+     * @param plugin         - The plugin invoking the animated menu
      * @param name           - The name of the overall Menu. You can set individual menu page names later.
      * @param size           - The size of the menu. This is an enum to enforce proper sizing. Use MenuSize to set this
-     * @param pages          - The number of pages for this menu.
      * @param decoration     - The Decoration scheme to use for this menu and all it's pages.
      * @param animationSpeed - The speed in ticks for the menu to update at.
      * @return Returns the constructed menu. From here you must set the menu options.
@@ -154,9 +155,9 @@ public class MenuAPI extends JavaPlugin {
      * This menu also has a Decoration Scheme. This is made through creating a new Decoration. All menus should
      * also have MenuItems to be functional. These MenuItems can be set later or in an alternate constructor.
      *
+     * @param plugin         - The plugin invoking the game menu
      * @param name           - The name of the overall Menu. You can set individual menu page names later.
      * @param size           - The size of the menu. This is an enum to enforce proper sizing. Use MenuSize to set this
-     * @param pages          - The number of pages for this menu.
      * @param decoration     - The Decoration scheme to use for this menu and all it's pages.
      * @param animationSpeed - The speed in ticks for the menu to update at.
      * @return Returns the constructed menu. From here you must set the menu options.

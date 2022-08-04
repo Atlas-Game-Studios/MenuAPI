@@ -3,7 +3,7 @@ package com.ags.menuapi.util;
 import de.tr7zw.nbtapi.NBTItem;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.HashMap;
+import java.util.Map;
 
 public class NBTUtil {
 
@@ -21,7 +21,7 @@ public class NBTUtil {
         return nbtItem.getItem();
     }
 
-    public static ItemStack setTags(ItemStack item, HashMap<String, Object> map) {
+    public static ItemStack setTags(ItemStack item, Map<String, Object> map) {
         if (item == null) return null;
         NBTItem nbtItem = new NBTItem(item);
         for (String key : map.keySet()) {
@@ -49,10 +49,7 @@ public class NBTUtil {
     public static boolean hasKey(ItemStack item, String nbtkey) {
         if (item == null) return false;
         NBTItem nbtItem = new NBTItem(item);
-        if (nbtItem.hasNBTData() && nbtItem.hasKey(nbtkey)) {
-            return true;
-        }
-        return false;
+        return nbtItem.hasNBTData() && nbtItem.hasKey(nbtkey);
     }
 
     public static boolean hasValue(ItemStack item, String key, Object value) {
@@ -182,8 +179,7 @@ public class NBTUtil {
         if (item == null) return false;
         NBTItem nbtItem = new NBTItem(item);
         if (!nbtItem.hasNBTData() || !nbtItem.hasKey("Type")) return false;
-        if (nbtItem.getString("Type").equalsIgnoreCase(typeName)) return true;
-        return false;
+        return nbtItem.getString("Type").equalsIgnoreCase(typeName);
     }
 
     public static String getTypeNBT(ItemStack item) {
@@ -209,8 +205,7 @@ public class NBTUtil {
         if (item == null) return false;
         NBTItem nbtItem = new NBTItem(item);
         if (!nbtItem.hasNBTData() || !nbtItem.hasKey("Material")) return false;
-        if (nbtItem.getString("Material").equalsIgnoreCase(materialName)) return true;
-        return false;
+        return nbtItem.getString("Material").equalsIgnoreCase(materialName);
     }
 
     public static String getMaterialNBT(ItemStack item) {
@@ -236,8 +231,7 @@ public class NBTUtil {
         if (item == null) return false;
         NBTItem nbtItem = new NBTItem(item);
         if (!nbtItem.hasNBTData() || !nbtItem.hasKey("Rarity")) return false;
-        if (nbtItem.getString("Rarity").equalsIgnoreCase(materialName)) return true;
-        return false;
+        return nbtItem.getString("Rarity").equalsIgnoreCase(materialName);
     }
 
     public static String getRarityNBT(ItemStack item) {

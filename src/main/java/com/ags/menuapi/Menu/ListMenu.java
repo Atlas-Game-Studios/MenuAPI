@@ -8,12 +8,13 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class ListMenu extends ActionMenu {
 
 
-    ArrayList<MenuItem> listItems;
+    List<MenuItem> listItems;
 
     int min;
     int max;
@@ -21,7 +22,7 @@ public class ListMenu extends ActionMenu {
 
     public ListMenu(JavaPlugin plugin, String name, MenuSize menusize, int pages, Decoration decoration) {
         super(plugin, name, menusize, pages, decoration);
-        listItems = new ArrayList<MenuItem>();
+        listItems = new ArrayList<>();
         min = 0;
         max = menusize.toNumber() - 1;
         overrideDecoration = false;
@@ -77,7 +78,7 @@ public class ListMenu extends ActionMenu {
         return slot;
     }
 
-    public int setItemsToList(ArrayList<MenuItem> mItems) {
+    public int setItemsToList(List<MenuItem> mItems) {
         if (mItems.size() == 0) return 0;
         int currentslot = 0;
         for (MenuItem mItem : mItems) {
@@ -127,7 +128,7 @@ public class ListMenu extends ActionMenu {
     }
 
 
-    public int updateItemsToList(ArrayList<MenuItem> mItems) {
+    public int updateItemsToList(List<MenuItem> mItems) {
         if (mItems.size() == 0) return 0;
         int currentslot = 0;
         for (MenuItem mItem : mItems) {
@@ -160,7 +161,7 @@ public class ListMenu extends ActionMenu {
 
     }
 
-    public void removeItemsFromList(ArrayList<MenuItem> mItems) {
+    public void removeItemsFromList(List<MenuItem> mItems) {
         // First physically remove all List items from this menu
         for (MenuItem listItem : listItems) {
             removeItem(listItem);

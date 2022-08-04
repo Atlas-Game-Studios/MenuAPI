@@ -9,7 +9,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Map;
 
 public class CallbackMenu extends Menu {
 
@@ -39,7 +39,7 @@ public class CallbackMenu extends Menu {
      *
      * @param page  - The page to add this Interact to.
      * @param slot  - The slot on the page to add the Interact to.
-     * @param mItem - The Interact to add.
+     * @param interact - The Interact to add.
      */
     public void addInteractToPage(int page, int slot, MenuItem interact) {
         pages.get(page).addInteract(slot, interact);
@@ -51,11 +51,10 @@ public class CallbackMenu extends Menu {
      * Remember to use the finish() function to finish a menu after adding all MenuItems to it.
      * <br>NOTE: Items put in slots that go beyond the size of this menu will default to the last slot.
      *
-     * @param page   - The page to add this Interact to.
-     * @param slot   - The slot on the page to add the Interact to.
-     * @param mItems - A HashMap<Integer,MenuItem> corresponding to multiple (slot,MenuItem) interact pairs to add to the menu.
+     * @param page      - The page to add this Interact to.
+     * @param interacts - A HashMap<Integer,MenuItem> corresponding to multiple (slot,MenuItem) interact pairs to add to the menu.
      */
-    public void addInteractsToPage(int page, HashMap<Integer, MenuItem> interacts) {
+    public void addInteractsToPage(int page, Map<Integer, MenuItem> interacts) {
         MenuPage menupage = pages.get(page);
         menupage.addInteracts(interacts);
     }

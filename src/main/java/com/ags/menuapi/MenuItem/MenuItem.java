@@ -8,7 +8,6 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -53,7 +52,7 @@ public class MenuItem {
 
     public MenuItem(Material mat, String name, String... lore) {
         this(mat);
-        List<String> loreList = new ArrayList<>(Arrays.asList(lore));
+        List<String> loreList = Arrays.asList(lore);
         setMeta(name, loreList);
     }
 
