@@ -37,8 +37,8 @@ public class CallbackMenu extends Menu {
      * Remember to use the finish() function to finish a menu after adding all MenuItems to it.
      * <br>NOTE: Items put in slots that go beyond the size of this menu will default to the last slot.
      *
-     * @param page  - The page to add this Interact to.
-     * @param slot  - The slot on the page to add the Interact to.
+     * @param page     - The page to add this Interact to.
+     * @param slot     - The slot on the page to add the Interact to.
      * @param interact - The Interact to add.
      */
     public void addInteractToPage(int page, int slot, MenuItem interact) {
