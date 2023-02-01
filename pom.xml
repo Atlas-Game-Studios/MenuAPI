@@ -18,10 +18,11 @@
 
     <distributionManagement>
         <repository>
-            <id>github</id>
-            <url>https://com.ags.github.com/Atlas-Game-Studios/MenuAPI</url>
+            <id>atlasmc-repo</id>
+            <url>http://128.136.251.23:9444/plugins</url>
         </repository>
     </distributionManagement>
+
 
     <build>
         <plugins>
