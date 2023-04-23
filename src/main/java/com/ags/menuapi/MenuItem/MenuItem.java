@@ -105,6 +105,7 @@ public class MenuItem {
 
     private void setMeta(String name, List<String> lore) {
         ItemMeta meta = this.item.getItemMeta();
+        if (meta == null) return;
         if (name != null) meta.setDisplayName(name);
         if (lore != null) meta.setLore(lore);
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
