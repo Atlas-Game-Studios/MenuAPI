@@ -19,7 +19,7 @@
     <distributionManagement>
         <repository>
             <id>atlasmc-repo</id>
-            <url>http://128.136.251.23:9444/plugins</url>
+            <url>https://repo.mc-atlas.com/maven</url>
         </repository>
     </distributionManagement>
 
