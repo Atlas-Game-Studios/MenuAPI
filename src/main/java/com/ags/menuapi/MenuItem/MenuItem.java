@@ -2,6 +2,9 @@ package com.ags.menuapi.MenuItem;
 
 import com.ags.menuapi.Menu.MenuPage;
 import com.ags.menuapi.util.NBTUtil;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
@@ -104,10 +107,11 @@ public class MenuItem {
     }
 
     private void setMeta(String name, List<String> lore) {
+        var mm = MiniMessage.miniMessage();
         ItemMeta meta = this.item.getItemMeta();
         if (meta == null) return;
-        if (name != null) meta.setDisplayName(name);
-        if (lore != null) meta.setLore(lore);
+        if (name != null) meta.displayName(mm.deserialize(name));
+        if (lore != null) meta.lore(lore.stream().map(mm::deserialize).toList());
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
         this.item.setItemMeta(meta);
@@ -188,12 +192,14 @@ public class MenuItem {
     }
 
     public String getName() {
-        return item.getItemMeta().getDisplayName();
+        Component display = item.getItemMeta().displayName();
+        return PlainTextComponentSerializer.plainText().serialize(display);
     }
 
     public void setName(String name) {
+        var mm = MiniMessage.miniMessage();
         ItemMeta meta = item.getItemMeta();
-        meta.setDisplayName(name);
+        meta.displayName(mm.deserialize(name));
         item.setItemMeta(meta);
     }
 
@@ -206,12 +212,14 @@ public class MenuItem {
     }
 
     public List<String> getDesc() {
-        return item.getItemMeta().getLore();
+        List<Component> lore = item.getItemMeta().lore();
+        return lore.stream().map(c -> PlainTextComponentSerializer.plainText().serialize(c)).toList();
     }
 
     public void setDesc(List<String> lines) {
+        var mm = MiniMessage.miniMessage();
         ItemMeta meta = item.getItemMeta();
-        meta.setLore(lines);
+        meta.lore(lines.stream().map(mm::deserialize).toList());
         item.setItemMeta(meta);
     }
 
