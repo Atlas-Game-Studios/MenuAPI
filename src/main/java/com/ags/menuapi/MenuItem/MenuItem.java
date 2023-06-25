@@ -13,6 +13,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class MenuItem {
@@ -213,7 +214,7 @@ public class MenuItem {
 
     public List<String> getDesc() {
         List<Component> lore = item.getItemMeta().lore();
-        return lore.stream().map(c -> PlainTextComponentSerializer.plainText().serialize(c)).toList();
+        return lore.stream().map(c -> PlainTextComponentSerializer.plainText().serialize(c)).collect(Collectors.toList());
     }
 
     public void setDesc(List<String> lines) {
