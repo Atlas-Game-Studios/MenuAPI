@@ -1,7 +1,7 @@
 package com.ags.menuapi.MenuItem;
 
+import com.ags.atlaslib.util.NBTUtil;
 import com.ags.menuapi.Menu.MenuPage;
-import com.ags.menuapi.util.NBTUtil;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
@@ -114,8 +114,9 @@ public class MenuItem {
         if (name != null) meta.displayName(mm.deserialize(name));
         if (lore != null) meta.lore(lore.stream().map(mm::deserialize).toList());
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-        meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS);
+        meta.addItemFlags(ItemFlag.HIDE_ITEM_SPECIFICS);
         this.item.setItemMeta(meta);
+        NBTUtil.setTag(item, "menu", true);
     }
 
 
@@ -164,7 +165,7 @@ public class MenuItem {
     }
 
     public MenuItem setNBTTag(String tag, Object value) {
-        item = NBTUtil.addTag(item, tag, value);
+        NBTUtil.setTag(item, tag, value);
         return this;
     }
 
