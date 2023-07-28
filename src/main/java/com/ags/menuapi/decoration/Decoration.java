@@ -1,6 +1,8 @@
 package com.ags.menuapi.decoration;
 
+import com.ags.atlaslib.util.NBTUtil;
 import com.ags.menuapi.Menu.MenuSize;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -52,12 +54,7 @@ public class Decoration {
             itemMap[i] = new ItemStack(Material.AIR);
         }
         for (int slot : scheme.getSlotsArray(size)) {
-            ItemStack item = new ItemStack(mat);
-            ItemMeta meta = item.getItemMeta();
-            meta.setDisplayName(" ");
-            meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS, ItemFlag.HIDE_ATTRIBUTES);
-            item.setItemMeta(meta);
-            itemMap[slot] = item;
+            makeDecorationItem(mat, slot);
         }
     }
 
@@ -66,12 +63,17 @@ public class Decoration {
             itemMap[i] = new ItemStack(Material.AIR);
         }
         for (int slot : slots) {
-            ItemStack item = new ItemStack(mat);
-            ItemMeta meta = item.getItemMeta();
-            meta.setDisplayName(" ");
-            meta.addItemFlags(ItemFlag.HIDE_POTION_EFFECTS, ItemFlag.HIDE_ATTRIBUTES);
-            item.setItemMeta(meta);
-            itemMap[slot] = item;
+            makeDecorationItem(mat, slot);
         }
+    }
+
+    private void makeDecorationItem(Material mat, int slot) {
+        ItemStack item = new ItemStack(mat);
+        ItemMeta meta = item.getItemMeta();
+        meta.displayName(Component.text(" "));
+        meta.addItemFlags(ItemFlag.HIDE_ITEM_SPECIFICS, ItemFlag.HIDE_ATTRIBUTES);
+        item.setItemMeta(meta);
+        NBTUtil.setTag(item, "menu", true);
+        itemMap[slot] = item;
     }
 }
