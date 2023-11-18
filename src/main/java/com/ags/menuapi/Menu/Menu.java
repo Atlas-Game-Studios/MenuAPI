@@ -18,6 +18,7 @@ public abstract class Menu {
     public JavaPlugin plugin;
 
     public String name;
+    public String unicode;
     public int size;
     public MenuSize menusize;
     public List<MenuPage> pages;
@@ -272,7 +273,10 @@ public abstract class Menu {
      * addPage() - Adds a page to this menu.
      */
     public void addPage() {
-        MenuPage page = new MenuPage(this, name, size, pages.size(), decoration);
+        MenuPage page;
+        if (unicode == null) page = new MenuPage(this, name, size, pages.size(), decoration);
+        else page = new MenuPage(this, name, size, pages.size(), decoration, unicode);
+
         pages.add(page);
         int pageIndex = pages.indexOf(page);
 

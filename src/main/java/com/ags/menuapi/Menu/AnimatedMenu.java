@@ -14,6 +14,12 @@ public class AnimatedMenu extends CallbackMenu implements Runnable {
 
     int taskNumber;
 
+    public AnimatedMenu(JavaPlugin plugin, String name, MenuSize menusize, Decoration decoration, int animationSpeed, String unicode) {
+        super(plugin, name, menusize, 1, decoration, unicode);
+        this.animationSpeed = animationSpeed;
+        taskNumber = plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, this, 60, animationSpeed);
+    }
+
     public AnimatedMenu(JavaPlugin plugin, String name, MenuSize menusize, Decoration decoration, int animationSpeed) {
         super(plugin, name, menusize, 1, decoration);
         this.animationSpeed = animationSpeed;

@@ -43,6 +43,21 @@ public class MenuPage implements InventoryHolder, Listener {
         holder.plugin.getServer().getPluginManager().registerEvents(this, holder.plugin);
     }
 
+    public MenuPage(Menu holder, String name, int size, int pagenumber, Decoration decoration, String unicode) {
+        this.holder = holder;
+        HashBiMap.create(60);
+        items = HashBiMap.create(60);
+        interacts = HashBiMap.create(60);
+
+        String trueName = "\uF818\uF811\uF831§f" + unicode + "\uF81C\uF81A\uF818\uF814§r" + name;
+
+        inv = Bukkit.createInventory(this, size, trueName);
+        this.pagenumber = pagenumber;
+        decorationSlots = new HashSet<Integer>();
+        setDecoration(decoration);
+        holder.plugin.getServer().getPluginManager().registerEvents(this, holder.plugin);
+    }
+
     // you can get the inventory with this
     @Override
     public Inventory getInventory() {

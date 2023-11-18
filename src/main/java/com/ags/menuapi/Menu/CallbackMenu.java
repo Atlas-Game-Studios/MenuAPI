@@ -18,6 +18,21 @@ public class CallbackMenu extends Menu {
     public CallbackMenu(JavaPlugin plugin, String name, MenuSize menusize, int pages, Decoration decoration) {
         this.plugin = plugin;
         this.name = name;
+        this.unicode = null;
+        this.menusize = menusize;
+        this.size = menusize.toNumber();
+        this.pages = new ArrayList<MenuPage>();
+        this.decoration = decoration;
+        for (int i = 0; i < pages; i++) {
+            addPage();
+        }
+    }
+
+    public CallbackMenu(JavaPlugin plugin, String name, MenuSize menusize, int pages, Decoration decoration,
+                        String unicode) {
+        this.plugin = plugin;
+        this.name = name;
+        this.unicode = unicode;
         this.menusize = menusize;
         this.size = menusize.toNumber();
         this.pages = new ArrayList<MenuPage>();

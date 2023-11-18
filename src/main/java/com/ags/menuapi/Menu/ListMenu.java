@@ -35,6 +35,21 @@ public class ListMenu extends ActionMenu {
         overrideDecoration = false;
     }
 
+    public ListMenu(JavaPlugin plugin, String name, MenuSize menusize, int pages, Decoration decoration, String unicode) {
+        super(plugin, name, menusize, pages, decoration, unicode);
+        listItems = new ArrayList<>();
+        min = 0;
+        max = menusize.toNumber() - 1;
+        overrideDecoration = false;
+    }
+
+    public ListMenu(JavaPlugin plugin, String name, MenuSize menusize, int pages, Decoration decoration, int min, int max, String unicode) {
+        this(plugin, name, menusize, pages, decoration, unicode);
+        this.min = min;
+        this.max = max;
+        overrideDecoration = false;
+    }
+
     public int setItemOnList(MenuItem mItem, int startSlot) {
 
         int minSlot = min;

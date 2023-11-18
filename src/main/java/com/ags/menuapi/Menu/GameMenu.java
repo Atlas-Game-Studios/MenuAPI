@@ -17,6 +17,12 @@ public class GameMenu extends AnimatedMenu implements Runnable {
 
     Map<String, Object> gameVariables;
 
+    public GameMenu(JavaPlugin plugin, String name, MenuSize menusize, Decoration decoration, int animationSpeed,
+                    String unicode) {
+        super(plugin, name, menusize, decoration, animationSpeed, unicode);
+        gameVariables = new HashMap<>();
+    }
+
     public GameMenu(JavaPlugin plugin, String name, MenuSize menusize, Decoration decoration, int animationSpeed) {
         super(plugin, name, menusize, decoration, animationSpeed);
         gameVariables = new HashMap<>();

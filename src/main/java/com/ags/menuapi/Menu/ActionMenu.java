@@ -19,6 +19,24 @@ public class ActionMenu extends Menu {
     public ActionMenu(JavaPlugin plugin, String name, MenuSize menusize, int pages, Decoration decoration) {
         this.plugin = plugin;
         this.name = name;
+        this.unicode = null;
+        this.menusize = menusize;
+        this.size = menusize.toNumber();
+        this.pages = new ArrayList<>();
+        this.decoration = decoration;
+        actions = new HashMap<>();
+
+        for (int i = 0; i < pages; i++) {
+            addPage();
+        }
+
+    }
+
+    public ActionMenu(JavaPlugin plugin, String name, MenuSize menusize, int pages, Decoration decoration,
+                      String unicode) {
+        this.plugin = plugin;
+        this.name = name;
+        this.unicode = unicode;
         this.menusize = menusize;
         this.size = menusize.toNumber();
         this.pages = new ArrayList<>();
