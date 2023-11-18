@@ -1,5 +1,6 @@
 package com.ags.menuapi.Menu;
 
+import com.ags.atlaslib.util.MessageUtil;
 import com.ags.menuapi.MenuItem.MenuItem;
 import com.ags.menuapi.addons.ClickSound;
 import com.ags.menuapi.decoration.Decoration;
@@ -49,9 +50,9 @@ public class MenuPage implements InventoryHolder, Listener {
         items = HashBiMap.create(60);
         interacts = HashBiMap.create(60);
 
-        String trueName = "\uF818\uF811\uF831§f" + unicode + "\uF81C\uF81A\uF818\uF814§r" + name;
+        String trueName = "\uF818\uF811\uF831<white>" + unicode + "\uF81C\uF81A\uF818\uF814<reset>" + name;
 
-        inv = Bukkit.createInventory(this, size, trueName);
+        inv = Bukkit.createInventory(this, size, MessageUtil.convertMsg(trueName));
         this.pagenumber = pagenumber;
         decorationSlots = new HashSet<Integer>();
         setDecoration(decoration);
