@@ -69,11 +69,13 @@ public class Decoration {
 
     private void makeDecorationItem(Material mat, int slot) {
         ItemStack item = new ItemStack(mat);
-        ItemMeta meta = item.getItemMeta();
-        meta.displayName(Component.text(" "));
-        meta.addItemFlags(ItemFlag.HIDE_ITEM_SPECIFICS, ItemFlag.HIDE_ATTRIBUTES);
-        item.setItemMeta(meta);
-        NBTUtil.setTag(item, "menu", true);
+        if (item.hasItemMeta()) {
+            ItemMeta meta = item.getItemMeta();
+            meta.displayName(Component.text(" "));
+            meta.addItemFlags(ItemFlag.HIDE_ITEM_SPECIFICS, ItemFlag.HIDE_ATTRIBUTES);
+            item.setItemMeta(meta);
+            NBTUtil.setTag(item, "menu", true);
+        }
         itemMap[slot] = item;
     }
 }
