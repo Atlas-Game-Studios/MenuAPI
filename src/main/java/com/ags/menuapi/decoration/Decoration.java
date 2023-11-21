@@ -69,7 +69,7 @@ public class Decoration {
 
     private void makeDecorationItem(Material mat, int slot) {
         ItemStack item = new ItemStack(mat);
-        if (item.hasItemMeta()) {
+        if (!mat.isAir()) {
             ItemMeta meta = item.getItemMeta();
             meta.displayName(Component.text(" "));
             meta.addItemFlags(ItemFlag.HIDE_ITEM_SPECIFICS, ItemFlag.HIDE_ATTRIBUTES);
