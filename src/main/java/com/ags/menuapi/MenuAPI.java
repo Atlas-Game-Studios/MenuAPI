@@ -61,7 +61,6 @@ public class MenuAPI extends JavaPlugin {
     }
 
     private void loadDefaults() {
-
         backButtonItem = getButton("BackButtonItem");
         nextButtonItem = getButton("NextButtonItem");
         prevButtonItem = getButton("PrevButtonItem");
@@ -98,15 +97,13 @@ public class MenuAPI extends JavaPlugin {
     private MenuItem getButton(String id) {
         FileConfiguration config = this.getConfig();
         Material mat = Material.getMaterial(config.getString(id + ".Material"));
-        String name = ChatColor.translateAlternateColorCodes('&', config.getString(id + ".Name"));
-        List<String> lore = new ArrayList<>();
-        for (String loreline : config.getStringList(id + ".Lore")) {
-            lore.add(ChatColor.translateAlternateColorCodes('&', loreline));
-        }
+        String name = config.getString(id + ".Name");
+        List<String> lore = new ArrayList<>(config.getStringList(id + ".Lore"));
+        Integer model = config.getInt(id + ".Model");
         if (mat != null) {
-            return new MenuItem(new ItemStack(mat), name, lore);
+            return new MenuItem(new ItemStack(mat), name, lore, model);
         }
-        Bukkit.getLogger().info(ChatColor.RED + "[MenuAPI][ERROR]: Incorrect Button Config for: " + id);
+        Bukkit.getLogger().severe("[MenuAPI][ERROR]: Incorrect Button Config for: " + id);
         return null;
     }
 

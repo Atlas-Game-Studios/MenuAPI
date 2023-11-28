@@ -12,10 +12,10 @@ BackButtonSlot:
    54: 45 # 45-53
 BackButtonItem:
    Material: BARRIER
-   Name: "&c^ BACK ^"
+   Name: "<!i><red><-BACK"
    Lore:
-   - "&f^^^^^^^^^^^^^"
-   - "&cPrevious Menu"
+   - "<!i><red>Previous Menu"
+   Model: 1
    
 PrevButtonSlot:
    9: 7 # 0-8
@@ -26,10 +26,11 @@ PrevButtonSlot:
    54: 52 # 45-53
 PrevButtonItem:
    Material: BOOK
-   Name: "&e< PREV PAGE <"
+   Name: "<!i><yellow>PREV PAGE"
    Lore:
-   - "&f<------------"
-   - "&ePrevious Page"
+   - "<!i><white><------------"
+   - "<!i><yellow>Previous Page"
+   Model: 1
 
 NextButtonSlot:
    9: 8 # 0-8
@@ -40,7 +41,8 @@ NextButtonSlot:
    54: 53 # 45-53
 NextButtonItem:
    Material: BOOK
-   Name: "&a> NEXT PAGE >"
+   Name: "<!i><green>NEXT PAGE"
    Lore:
-   - "&f-------->"
-   - "&aNext Page"
+   - "<!i><white>-------->"
+   - "<!i><green>Next Page"
+   Model: 1

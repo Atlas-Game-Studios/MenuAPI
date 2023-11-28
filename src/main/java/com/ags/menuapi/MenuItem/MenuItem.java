@@ -26,23 +26,28 @@ public class MenuItem {
 
     public MenuItem(ItemStack item) {
         this.item = item;
-        setMeta(null, null);
+        setMeta(null, null, null);
     }
 
     public MenuItem(ItemStack item, String name) {
         this(item);
-        setMeta(name, null);
+        setMeta(name, null, null);
     }
 
     public MenuItem(ItemStack item, String name, String... lore) {
         this(item);
         List<String> loreList = Arrays.asList(lore);
-        setMeta(name, loreList);
+        setMeta(name, loreList, null);
     }
 
     public MenuItem(ItemStack item, String name, List<String> lore) {
         this(item);
-        setMeta(name, lore);
+        setMeta(name, lore, null);
+    }
+
+    public MenuItem(ItemStack item, String name, List<String> lore, Integer model) {
+        this(item);
+        setMeta(name, lore, model);
     }
 
     public MenuItem(Material mat) {
@@ -51,18 +56,18 @@ public class MenuItem {
 
     public MenuItem(Material mat, String name) {
         this(mat);
-        setMeta(name, null);
+        setMeta(name, null, null);
     }
 
     public MenuItem(Material mat, String name, String... lore) {
         this(mat);
         List<String> loreList = Arrays.asList(lore);
-        setMeta(name, loreList);
+        setMeta(name, loreList, null);
     }
 
     public MenuItem(Material mat, String name, List<String> lore) {
         this(mat);
-        setMeta(name, lore);
+        setMeta(name, lore, null);
     }
 
     public MenuItem(MenuItemAction action, ItemStack item) {
@@ -72,18 +77,18 @@ public class MenuItem {
 
     public MenuItem(MenuItemAction action, ItemStack item, String name) {
         this(action, item);
-        setMeta(name, null);
+        setMeta(name, null, null);
     }
 
     public MenuItem(MenuItemAction action, ItemStack item, String name, String... lore) {
         this(action, item);
         List<String> loreList = Arrays.asList(lore);
-        setMeta(name, loreList);
+        setMeta(name, loreList, null);
     }
 
     public MenuItem(MenuItemAction action, ItemStack item, String name, List<String> lore) {
         this(action, item);
-        setMeta(name, lore);
+        setMeta(name, lore, null);
     }
 
     public MenuItem(MenuItemAction action, Material mat) {
@@ -93,26 +98,27 @@ public class MenuItem {
 
     public MenuItem(MenuItemAction action, Material mat, String name) {
         this(action, mat);
-        setMeta(name, null);
+        setMeta(name, null, null);
     }
 
     public MenuItem(MenuItemAction action, Material mat, String name, String... lore) {
         this(action, mat);
         List<String> loreList = Arrays.asList(lore);
-        setMeta(name, loreList);
+        setMeta(name, loreList, null);
     }
 
     public MenuItem(MenuItemAction action, Material mat, String name, List<String> lore) {
         this(action, mat);
-        setMeta(name, lore);
+        setMeta(name, lore, null);
     }
 
-    private void setMeta(String name, List<String> lore) {
+    private void setMeta(String name, List<String> lore, Integer model) {
         var mm = MiniMessage.miniMessage();
         ItemMeta meta = this.item.getItemMeta();
         if (meta == null) return;
         if (name != null) meta.displayName(mm.deserialize(name));
         if (lore != null) meta.lore(lore.stream().map(mm::deserialize).toList());
+        if (model != null) meta.setCustomModelData(model);
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
         meta.addItemFlags(ItemFlag.HIDE_ITEM_SPECIFICS);
         this.item.setItemMeta(meta);
