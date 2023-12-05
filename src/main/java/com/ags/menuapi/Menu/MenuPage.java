@@ -34,19 +34,17 @@ public class MenuPage implements InventoryHolder, Listener {
 
     public MenuPage(Menu holder, String name, int size, int pagenumber, Decoration decoration) {
         this.holder = holder;
-        HashBiMap.create(60);
         items = HashBiMap.create(60);
         interacts = HashBiMap.create(60);
-        inv = Bukkit.createInventory(this, size, name);
+        inv = Bukkit.createInventory(this, size, MessageUtil.convertMsg(name));
         this.pagenumber = pagenumber;
-        decorationSlots = new HashSet<Integer>();
+        decorationSlots = new HashSet<>();
         setDecoration(decoration);
         holder.plugin.getServer().getPluginManager().registerEvents(this, holder.plugin);
     }
 
     public MenuPage(Menu holder, String name, int size, int pagenumber, Decoration decoration, String unicode) {
         this.holder = holder;
-        HashBiMap.create(60);
         items = HashBiMap.create(60);
         interacts = HashBiMap.create(60);
 
@@ -54,7 +52,7 @@ public class MenuPage implements InventoryHolder, Listener {
 
         inv = Bukkit.createInventory(this, size, MessageUtil.convertMsg(trueName));
         this.pagenumber = pagenumber;
-        decorationSlots = new HashSet<Integer>();
+        decorationSlots = new HashSet<>();
         setDecoration(decoration);
         holder.plugin.getServer().getPluginManager().registerEvents(this, holder.plugin);
     }
@@ -199,7 +197,7 @@ public class MenuPage implements InventoryHolder, Listener {
             MenuCloseEvent closeevent = new MenuCloseEvent((Player) event.getPlayer(), this);
             holder.plugin.getServer().getPluginManager().callEvent(closeevent);
 
-            if (interacts.size() > 0) {
+            if (!interacts.isEmpty()) {
                 for (int slot : interacts.keySet()) {
                     // If the item in the slot is not one that started there, refund it
                     if (inv.getItem(slot) != null && !inv.getItem(slot).isSimilar(interacts.get(slot).getItem())) {
@@ -229,7 +227,7 @@ public class MenuPage implements InventoryHolder, Listener {
 
         // Cancel the event if this is not an interact menu.
         // Interact menus have many more rules to handle cursor items.
-        if (interacts.size() > 0) {
+        if (!interacts.isEmpty()) {
 
             // If we have an interact slot the menu will allow the player to shift+click without canceling
             // We handle that here by canceling the shift+click and directing it towards an interact slot.
@@ -291,8 +289,7 @@ public class MenuPage implements InventoryHolder, Listener {
             }, 1);
         }
 
-        if (event.getWhoClicked() instanceof Player) {
-            Player clicker = (Player) event.getWhoClicked();
+        if (event.getWhoClicked() instanceof Player clicker) {
             int slot = event.getRawSlot();
             ClickSound clicksound = holder.getClickSound();
             if (clicksound.hasSound() && items.containsKey(slot)) {
