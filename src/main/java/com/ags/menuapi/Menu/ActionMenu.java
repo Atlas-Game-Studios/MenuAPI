@@ -63,6 +63,12 @@ public class ActionMenu extends Menu {
         }
     }
 
+    @Override
+    public void addItemToAllPages(int slot, MenuItem mItem) {
+        super.addItemToAllPages(slot, mItem);
+        actions.put(mItem.getItem(), mItem.getAction());
+    }
+
     public void handleItemClick(MenuPage page, ItemStack item, int slot, Player clicker, InventoryClickEvent event) {
         super.handleItemClick(page, item, slot, clicker, event);
         if (actions.containsKey(item) && actions.get(item) != null) {
