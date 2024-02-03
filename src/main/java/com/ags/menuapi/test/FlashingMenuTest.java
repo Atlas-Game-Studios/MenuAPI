@@ -144,6 +144,10 @@ public class FlashingMenuTest {
                     }
                 }
             }
+
+            public void callback(AnimatedListMenu menu) {
+
+            }
         };
 
         // Set actions and open menu
