@@ -15,12 +15,12 @@ public class AnimatedListMenu extends ListMenu implements Runnable {
 
     int taskNumber;
 
-    public AnimatedListMenu(JavaPlugin plugin, String name, MenuSize menusize, int pages, Decoration decoration) {
-        this(plugin, name, menusize, pages, decoration, 60);
+    public AnimatedListMenu(JavaPlugin plugin, String name, MenuSize menusize, int pages, Decoration decoration, int min, int max) {
+        this(plugin, name, menusize, pages, decoration, min, max, 60);
     }
 
-    public AnimatedListMenu(JavaPlugin plugin, String name, MenuSize menuSize, int pages, Decoration decoration, int animationSpeed) {
-        super(plugin, name, menuSize, pages, decoration);
+    public AnimatedListMenu(JavaPlugin plugin, String name, MenuSize menuSize, int pages, Decoration decoration, int min, int max, int animationSpeed) {
+        super(plugin, name, menuSize, pages, decoration, min, max);
         this.animationSpeed = animationSpeed;
         taskNumber = plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, this, 20, animationSpeed);
     }
