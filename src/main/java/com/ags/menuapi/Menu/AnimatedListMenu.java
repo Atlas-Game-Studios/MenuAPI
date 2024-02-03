@@ -5,23 +5,22 @@ import com.ags.menuapi.decoration.Decoration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class AnimatedMenu extends CallbackMenu implements Runnable {
+public class AnimatedListMenu extends ListMenu implements Runnable {
 
     AnimationCallback animation;
+
     int animationSpeed;
 
     Player viewer;
 
     int taskNumber;
 
-    public AnimatedMenu(JavaPlugin plugin, String name, MenuSize menusize, Decoration decoration, int animationSpeed, String unicode) {
-        super(plugin, name, menusize, 1, decoration, unicode);
-        this.animationSpeed = animationSpeed;
-        taskNumber = plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, this, 20, animationSpeed);
+    public AnimatedListMenu(JavaPlugin plugin, String name, MenuSize menusize, int pages, Decoration decoration) {
+        this(plugin, name, menusize, pages, decoration, 60);
     }
 
-    public AnimatedMenu(JavaPlugin plugin, String name, MenuSize menusize, Decoration decoration, int animationSpeed) {
-        super(plugin, name, menusize, 1, decoration);
+    public AnimatedListMenu(JavaPlugin plugin, String name, MenuSize menuSize, int pages, Decoration decoration, int animationSpeed) {
+        super(plugin, name, menuSize, pages, decoration);
         this.animationSpeed = animationSpeed;
         taskNumber = plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, this, 20, animationSpeed);
     }
@@ -65,5 +64,4 @@ public class AnimatedMenu extends CallbackMenu implements Runnable {
             animation.callback(this);
         }
     }
-
 }

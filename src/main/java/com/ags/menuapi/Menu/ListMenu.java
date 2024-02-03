@@ -144,7 +144,7 @@ public class ListMenu extends ActionMenu {
 
 
     public int updateItemsToList(List<MenuItem> mItems) {
-        if (mItems.size() == 0) return 0;
+        if (mItems.isEmpty()) return 0;
         int currentslot = 0;
         for (MenuItem mItem : mItems) {
             currentslot = updateItemOnList(mItem, currentslot);
@@ -162,7 +162,6 @@ public class ListMenu extends ActionMenu {
 //	}
 
     public void removeItemFromList(MenuItem mItem) {
-
         // First physically remove all List items from this menu
         for (MenuItem listItem : listItems) {
             removeItem(listItem);
@@ -173,7 +172,6 @@ public class ListMenu extends ActionMenu {
 
         // Re-add all remaining List Items to the menu
         updateItemsToList(listItems);
-
     }
 
     public void removeItemsFromList(List<MenuItem> mItems) {
