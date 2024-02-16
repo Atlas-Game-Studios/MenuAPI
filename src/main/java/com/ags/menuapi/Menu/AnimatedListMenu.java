@@ -1,13 +1,13 @@
 package com.ags.menuapi.Menu;
 
-import com.ags.menuapi.callbacks.AnimationCallback;
+import com.ags.menuapi.callbacks.AnimationListCallback;
 import com.ags.menuapi.decoration.Decoration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class AnimatedListMenu extends ListMenu implements Runnable {
 
-    AnimationCallback animation;
+    AnimationListCallback animation;
 
     int animationSpeed;
 
@@ -25,11 +25,11 @@ public class AnimatedListMenu extends ListMenu implements Runnable {
         taskNumber = plugin.getServer().getScheduler().scheduleSyncRepeatingTask(plugin, this, 20, animationSpeed);
     }
 
-    public AnimationCallback getAnimation() {
+    public AnimationListCallback getAnimation() {
         return animation;
     }
 
-    public void setAnimation(AnimationCallback animation) {
+    public void setAnimation(AnimationListCallback animation) {
         this.animation = animation;
     }
 
