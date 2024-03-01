@@ -9,6 +9,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 
 public class ListMenu extends ActionMenu {
@@ -94,7 +95,7 @@ public class ListMenu extends ActionMenu {
     }
 
     public int setItemsToList(List<MenuItem> mItems) {
-        if (mItems.size() == 0) return 0;
+        if (mItems.isEmpty()) return 0;
         int currentslot = 0;
         for (MenuItem mItem : mItems) {
             currentslot = setItemOnList(mItem, currentslot);
@@ -151,15 +152,6 @@ public class ListMenu extends ActionMenu {
         }
         return currentslot;
     }
-
-//	public int updateItemsToList(CopyOnWriteArrayList<MenuItem> mItems) {
-//		if(mItems.size() == 0) return 0;
-//		int currentslot = 0;
-//		for(MenuItem mItem: mItems) {
-//			currentslot = updateItemOnList(mItem,currentslot);
-//		}
-//		return currentslot;
-//	}
 
     public void removeItemFromList(MenuItem mItem) {
         // First physically remove all List items from this menu
