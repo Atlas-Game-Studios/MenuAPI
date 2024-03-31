@@ -180,31 +180,25 @@ public class MenuPage implements InventoryHolder, Listener {
     // Cancel any drag event in a menu. Currently there is no use for them here.
     @EventHandler
     public void onInventoryDrag(InventoryDragEvent event) {
-        if (event.getInventory().getHolder() == this) {
-            if (event.getInventorySlots().containsAll(event.getRawSlots())) {
-                event.setCancelled(true);
-            }
-        }
-
+        if (event.getInventory().getHolder() != this) return;
+        if (!event.getInventorySlots().containsAll(event.getRawSlots())) return;
+        event.setCancelled(true);
     }
 
     // This event will return any interact items the player left in the menu when closing it.
     @EventHandler
     public void onInventoryClose(InventoryCloseEvent event) {
-        if (event.getInventory().getHolder() == this) {
+        if (event.getInventory().getHolder() != this) return;
+        // If we get here we need to trigger the MenuCloseEvent before moving on.
+        MenuCloseEvent closeevent = new MenuCloseEvent((Player) event.getPlayer(), this);
+        holder.plugin.getServer().getPluginManager().callEvent(closeevent);
 
-            // If we get here we need to trigger the MenuCloseEvent before moving on.
-            MenuCloseEvent closeevent = new MenuCloseEvent((Player) event.getPlayer(), this);
-            holder.plugin.getServer().getPluginManager().callEvent(closeevent);
-
-            if (!interacts.isEmpty()) {
-                for (int slot : interacts.keySet()) {
-                    // If the item in the slot is not one that started there, refund it
-                    if (inv.getItem(slot) != null && !inv.getItem(slot).isSimilar(interacts.get(slot).getItem())) {
-                        event.getPlayer().getInventory().addItem(inv.getItem(slot));
-                    }
-                }
-            }
+        if (interacts.isEmpty()) return;
+        for (int slot : interacts.keySet()) {
+            // If the item in the slot is not one that started there, refund it
+            if (inv.getItem(slot) == null) continue;
+            if (inv.getItem(slot).isSimilar(interacts.get(slot).getItem())) continue;
+            event.getPlayer().getInventory().addItem(inv.getItem(slot));
         }
     }
 
@@ -231,14 +225,11 @@ public class MenuPage implements InventoryHolder, Listener {
 
             // If we have an interact slot the menu will allow the player to shift+click without canceling
             // We handle that here by canceling the shift+click and directing it towards an interact slot.
-            if (click.equals(ClickType.SHIFT_LEFT) || click.equals(ClickType.SHIFT_RIGHT)) {
-
+            if (click.isShiftClick()) {
                 // For Top inventory, only cancel if it's not an interact slot
                 // For Bottom, we need to create special rules to send items only to interact slots. So cancel immediately
                 if (isTopInventory(event)) {
-                    if (!isSlotInteractive(event)) {
-                        event.setCancelled(true);
-                    }
+                    if (!isSlotInteractive(event)) event.setCancelled(true);
                 } else {
                     // Two main behaviors:
                     // 1) Empty interact slot? Fill it
@@ -251,10 +242,8 @@ public class MenuPage implements InventoryHolder, Listener {
                             inv.setItem(slot, clickItem);
                             clickItem.setAmount(0);
                             break;
-
                             // 2)
                         } else if (slotItem.isSimilar(clickItem)) {
-
                             // If we can do a clean add, great, do it.
                             // If not, add what we can and go on to next interact slot
                             if (slotItem.getAmount() + clickItem.getAmount() <= slotItem.getMaxStackSize()) {
@@ -289,14 +278,13 @@ public class MenuPage implements InventoryHolder, Listener {
             }, 1);
         }
 
-        if (event.getWhoClicked() instanceof Player clicker) {
-            int slot = event.getRawSlot();
-            ClickSound clicksound = holder.getClickSound();
-            if (clicksound.hasSound() && items.containsKey(slot)) {
-                clicker.playSound(clicker.getLocation(), clicksound.getSound(), clicksound.getVolume(), clicksound.getPitch());
-            }
-            holder.handleItemClick(this, clickItem, slot, clicker, event);
+        if (!(event.getWhoClicked() instanceof Player clicker)) return;
+        int slot = event.getRawSlot();
+        ClickSound clicksound = holder.getClickSound();
+        if (clicksound.hasSound() && items.containsKey(slot)) {
+            clicker.playSound(clicker.getLocation(), clicksound.getSound(), clicksound.getVolume(), clicksound.getPitch());
         }
+        holder.handleItemClick(this, clickItem, slot, clicker, event);
 
     }
 
