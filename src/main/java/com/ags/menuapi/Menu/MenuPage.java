@@ -23,7 +23,7 @@ import org.bukkit.inventory.ItemStack;
 import java.util.HashSet;
 import java.util.Map;
 
-public class MenuPage implements InventoryHolder, Listener {
+public class MenuPage implements Listener {
 
     private final Inventory inv;
     private final int pagenumber;
@@ -36,7 +36,7 @@ public class MenuPage implements InventoryHolder, Listener {
         this.holder = holder;
         items = HashBiMap.create(60);
         interacts = HashBiMap.create(60);
-        inv = Bukkit.createInventory(this, size, MessageUtil.convertMsg(name));
+        inv = Bukkit.createInventory(null, size, MessageUtil.convertMsg(name));
         this.pagenumber = pagenumber;
         decorationSlots = new HashSet<>();
         setDecoration(decoration);
@@ -50,7 +50,7 @@ public class MenuPage implements InventoryHolder, Listener {
 
         String trueName = "\uF818\uF811\uF831<white>" + unicode + "\uF81C\uF81A\uF818\uF814<reset>" + name;
 
-        inv = Bukkit.createInventory(this, size, MessageUtil.convertMsg(trueName));
+        inv = Bukkit.createInventory(null, size, MessageUtil.convertMsg(trueName));
         this.pagenumber = pagenumber;
         decorationSlots = new HashSet<>();
         setDecoration(decoration);
@@ -58,7 +58,6 @@ public class MenuPage implements InventoryHolder, Listener {
     }
 
     // you can get the inventory with this
-    @Override
     public Inventory getInventory() {
         return inv;
     }
@@ -180,7 +179,7 @@ public class MenuPage implements InventoryHolder, Listener {
     // Cancel any drag event in a menu. Currently there is no use for them here.
     @EventHandler
     public void onInventoryDrag(InventoryDragEvent event) {
-        if (event.getInventory().getHolder() != this) return;
+        if (!event.getInventory().equals(getInventory())) return;
         if (!event.getInventorySlots().containsAll(event.getRawSlots())) return;
         event.setCancelled(true);
     }
@@ -188,7 +187,7 @@ public class MenuPage implements InventoryHolder, Listener {
     // This event will return any interact items the player left in the menu when closing it.
     @EventHandler
     public void onInventoryClose(InventoryCloseEvent event) {
-        if (event.getInventory().getHolder() != this) return;
+        if (!event.getInventory().equals(getInventory())) return;
         // If we get here we need to trigger the MenuCloseEvent before moving on.
         MenuCloseEvent closeevent = new MenuCloseEvent((Player) event.getPlayer(), this);
         holder.plugin.getServer().getPluginManager().callEvent(closeevent);
@@ -207,7 +206,7 @@ public class MenuPage implements InventoryHolder, Listener {
     //       Only items we want moving should result in no cancelling
     @EventHandler
     public void onInventoryClick(InventoryClickEvent event) {
-        if (event.getInventory().getHolder() != this) return;
+        if (!event.getInventory().equals(getInventory())) return;
 
         ItemStack clickItem = event.getCurrentItem();
 
