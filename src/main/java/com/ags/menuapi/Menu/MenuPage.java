@@ -1,6 +1,7 @@
 package com.ags.menuapi.Menu;
 
 import com.ags.atlaslib.util.MessageUtil;
+import com.ags.atlaslib.util.PlayerUtil;
 import com.ags.menuapi.MenuItem.MenuItem;
 import com.ags.menuapi.addons.ClickSound;
 import com.ags.menuapi.decoration.Decoration;
@@ -17,17 +18,17 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryDragEvent;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class MenuPage implements Listener {
 
     private final Inventory inv;
     private final int pagenumber;
-    private final HashSet<Integer> decorationSlots;
+    private final Set<Integer> decorationSlots;
     private final HashBiMap<Integer, MenuItem> items;
     private final HashBiMap<Integer, MenuItem> interacts;
     private final Menu holder;
@@ -161,7 +162,7 @@ public class MenuPage implements Listener {
         return interacts;
     }
 
-    public HashSet<Integer> getDecorationSlots() {
+    public Set<Integer> getDecorationSlots() {
         return decorationSlots;
     }
 
@@ -187,17 +188,22 @@ public class MenuPage implements Listener {
     // This event will return any interact items the player left in the menu when closing it.
     @EventHandler
     public void onInventoryClose(InventoryCloseEvent event) {
+        Player player = (Player) event.getPlayer();
         if (!event.getInventory().equals(getInventory())) return;
         // If we get here we need to trigger the MenuCloseEvent before moving on.
-        MenuCloseEvent closeevent = new MenuCloseEvent((Player) event.getPlayer(), this);
-        holder.plugin.getServer().getPluginManager().callEvent(closeevent);
+        MenuCloseEvent mce = new MenuCloseEvent((Player) event.getPlayer(), this);
+        mce.callEvent();
 
         if (interacts.isEmpty()) return;
         for (int slot : interacts.keySet()) {
             // If the item in the slot is not one that started there, refund it
-            if (inv.getItem(slot) == null) continue;
-            if (inv.getItem(slot).isSimilar(interacts.get(slot).getItem())) continue;
-            event.getPlayer().getInventory().addItem(inv.getItem(slot));
+            ItemStack invItem = inv.getItem(slot);
+            MenuItem interact = interacts.get(slot);
+            if (invItem == null) continue;
+            if (interact == null) continue;
+            ItemStack interactItem = interact.getItem();
+            if (invItem.isSimilar(interactItem)) continue;
+            PlayerUtil.giveOrDropItem(player, invItem);
         }
     }
 

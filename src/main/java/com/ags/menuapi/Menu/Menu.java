@@ -32,7 +32,7 @@ public abstract class Menu {
     private NextButton nextButton;
     private PrevButton prevButton;
 
-    private final List<PermButton> permButtons = new ArrayList<PermButton>();
+    private final List<PermButton> permButtons = new ArrayList<>();
 
     public MenuSize getMenuSize() {
         return menusize;
@@ -92,7 +92,7 @@ public abstract class Menu {
      * @return Last MenuPage in the menu
      */
     public MenuPage getLastPage() {
-        if (pages.size() == 0) {
+        if (pages.isEmpty()) {
             return null;
         }
         return pages.get(pages.size() - 1);

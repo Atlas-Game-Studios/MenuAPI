@@ -1,5 +1,6 @@
 package com.ags.menuapi;
 
+import com.ags.atlaslib.util.MessageUtil;
 import com.ags.menuapi.Menu.*;
 import com.ags.menuapi.MenuItem.MenuItem;
 import com.ags.menuapi.addons.BackButton;
@@ -8,7 +9,6 @@ import com.ags.menuapi.addons.PrevButton;
 import com.ags.menuapi.decoration.Decoration;
 import com.ags.menuapi.test.Test;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Server;
 import org.bukkit.command.ConsoleCommandSender;
@@ -25,7 +25,7 @@ import java.util.Map;
 
 public class MenuAPI extends JavaPlugin {
 
-    public static List<Menu> menus = new ArrayList<>();
+    public static Map<String, Menu> menus = new HashMap<>();
 
     private static MenuItem backButtonItem;
     private static MenuItem nextButtonItem;
@@ -40,11 +40,11 @@ public class MenuAPI extends JavaPlugin {
         this.saveDefaultConfig();
         Server server = getServer();
         ConsoleCommandSender console = server.getConsoleSender();
-        console.sendMessage(ChatColor.BLUE + "[" + this.getName() + "]" + ChatColor.WHITE + " ---------------------------------");
-        console.sendMessage(ChatColor.BLUE + "[" + this.getName() + "]" + ChatColor.WHITE + " Plugin has been enabled");
-        console.sendMessage(ChatColor.BLUE + "[" + this.getName() + "]" + ChatColor.WHITE + " ---------------------------------");
-        console.sendMessage(ChatColor.BLUE + "[" + this.getName() + "]" + ChatColor.WHITE + " Version: " + this.getDescription().getVersion());
-        console.sendMessage(ChatColor.BLUE + "[" + this.getName() + "]" + ChatColor.WHITE + " ---------------------------------");
+        console.sendMessage(MessageUtil.convertMsg("<blue>[" + this.getName() + "]<white> ---------------------------------"));
+        console.sendMessage(MessageUtil.convertMsg("<blue>[" + this.getName() + "]<white> Plugin has been enabled"));
+        console.sendMessage(MessageUtil.convertMsg("<blue>[" + this.getName() + "]<white> ---------------------------------"));
+        console.sendMessage(MessageUtil.convertMsg("<blue>[" + this.getName() + "]<white> Version: " + this.getDescription().getVersion()));
+        console.sendMessage(MessageUtil.convertMsg("<blue>[" + this.getName() + "]<white> ---------------------------------"));
 
         loadDefaults();
 
@@ -55,9 +55,9 @@ public class MenuAPI extends JavaPlugin {
     public void onDisable() {
         Server server = getServer();
         ConsoleCommandSender console = server.getConsoleSender();
-        console.sendMessage(ChatColor.BLUE + "[" + this.getName() + "]" + ChatColor.WHITE + " ---------------------------------");
-        console.sendMessage(ChatColor.BLUE + "[" + this.getName() + "]" + ChatColor.WHITE + " Plugin has been disabled");
-        console.sendMessage(ChatColor.BLUE + "[" + this.getName() + "]" + ChatColor.WHITE + " ---------------------------------");
+        console.sendMessage(MessageUtil.convertMsg("<blue>[" + this.getName() + "]<white> ---------------------------------"));
+        console.sendMessage(MessageUtil.convertMsg("<blue>[" + this.getName() + "]<white> Plugin has been disabled"));
+        console.sendMessage(MessageUtil.convertMsg("<blue>[" + this.getName() + "]<white> ---------------------------------"));
     }
 
     private void loadDefaults() {
@@ -96,7 +96,8 @@ public class MenuAPI extends JavaPlugin {
 
     private MenuItem getButton(String id) {
         FileConfiguration config = this.getConfig();
-        Material mat = Material.getMaterial(config.getString(id + ".Material"));
+        String m = config.getString(id + ".Material");
+        Material mat = Material.getMaterial(m);
         String name = config.getString(id + ".Name");
         List<String> lore = new ArrayList<>(config.getStringList(id + ".Lore"));
         Integer model = config.getInt(id + ".Model");
@@ -120,8 +121,7 @@ public class MenuAPI extends JavaPlugin {
      * @return - Returns the constructed menu. From here you must set the callback function, the decoration scheme, and the menu options.
      */
     public static CallbackMenu createCallbackMenu(JavaPlugin plugin, String name, MenuSize size, int pages, Decoration decoration) {
-        CallbackMenu menu = new CallbackMenu(plugin, name, size, pages, decoration);
-        return menu;
+        return new CallbackMenu(plugin, name, size, pages, decoration);
     }
 
 
@@ -140,8 +140,7 @@ public class MenuAPI extends JavaPlugin {
      * @return Returns the constructed menu. From here you must set the menu options.
      */
     public static AnimatedMenu createAnimatedMenu(JavaPlugin plugin, String name, MenuSize size, Decoration decoration, int animationSpeed) {
-        AnimatedMenu menu = new AnimatedMenu(plugin, name, size, decoration, animationSpeed);
-        return menu;
+        return new AnimatedMenu(plugin, name, size, decoration, animationSpeed);
     }
 
     /**
@@ -160,8 +159,7 @@ public class MenuAPI extends JavaPlugin {
      * @return Returns the constructed menu. From here you must set the menu options.
      */
     public static GameMenu createGameMenu(JavaPlugin plugin, String name, MenuSize size, Decoration decoration, int animationSpeed) {
-        GameMenu menu = new GameMenu(plugin, name, size, decoration, animationSpeed);
-        return menu;
+        return new GameMenu(plugin, name, size, decoration, animationSpeed);
     }
 
 
@@ -177,8 +175,7 @@ public class MenuAPI extends JavaPlugin {
      * @return Returns the constructed menu. From here you must set the menu options.
      */
     public static ActionMenu createActionMenu(JavaPlugin plugin, String name, MenuSize size, int pages, Decoration decoration) {
-        ActionMenu menu = new ActionMenu(plugin, name, size, pages, decoration);
-        return menu;
+        return new ActionMenu(plugin, name, size, pages, decoration);
     }
 
     /**
@@ -193,8 +190,7 @@ public class MenuAPI extends JavaPlugin {
      * @return Returns the constructed menu. From here you must set the menu options. F
      */
     public static ListMenu createListMenu(JavaPlugin plugin, String name, MenuSize size, int pages, Decoration decoration) {
-        ListMenu menu = new ListMenu(plugin, name, size, pages, decoration);
-        return menu;
+        return new ListMenu(plugin, name, size, pages, decoration);
     }
 
 
@@ -211,8 +207,7 @@ public class MenuAPI extends JavaPlugin {
      * @return Returns the constructed menu. From here you must set the decoration scheme, and the menu options.
      */
     public static ListMenu createListMenu(JavaPlugin plugin, String name, MenuSize size, int pages, Decoration decoration, int min, int max) {
-        ListMenu menu = new ListMenu(plugin, name, size, pages, decoration, min, max);
-        return menu;
+        return new ListMenu(plugin, name, size, pages, decoration, min, max);
     }
 
     /**
@@ -224,12 +219,10 @@ public class MenuAPI extends JavaPlugin {
      * @param menu
      */
     public static void cacheMenu(Menu menu) {
-        for (Menu savedMenu : menus) {
-            if (savedMenu.name.equalsIgnoreCase(menu.name)) {
-                Bukkit.getLogger().info(ChatColor.RED + "[MenuAPI][ERROR]: Menu cached with that name already! Menu not cached.");
-            } else {
-                menus.add(menu);
-            }
+        if (menus.containsKey(menu.name)) {
+            Bukkit.getLogger().warning("Menu cached with that name already! Menu not cached.");
+        } else {
+            menus.put(menu.name, menu);
         }
     }
 
@@ -240,12 +233,7 @@ public class MenuAPI extends JavaPlugin {
      * @return The cached Menu with the name supplied.
      */
     public static Menu getMenu(String name) {
-        for (Menu savedMenu : menus) {
-            if (savedMenu.name.equalsIgnoreCase(name)) {
-                return savedMenu;
-            }
-        }
-        return null;
+        return menus.get(name);
     }
 
     /**
@@ -255,8 +243,8 @@ public class MenuAPI extends JavaPlugin {
      *
      * @param menu - The menu to remove from the cache.
      */
-    public static void unchacheMenu(Menu menu) {
-        menus.remove(menu);
+    public static void unCacheMenu(Menu menu) {
+        menus.remove(menu.name);
     }
 
     public static void openMenu(MenuPage menu, Player player) {
