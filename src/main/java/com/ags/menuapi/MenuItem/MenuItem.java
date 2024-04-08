@@ -11,6 +11,7 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -221,7 +222,9 @@ public class MenuItem {
 
     public List<String> getDesc() {
         List<Component> lore = item.getItemMeta().lore();
-        return lore.stream().map(c -> PlainTextComponentSerializer.plainText().serialize(c)).collect(Collectors.toList());
+        if (lore == null) return new ArrayList<>();
+        var mm = MiniMessage.miniMessage();
+        return lore.stream().map(mm::serialize).collect(Collectors.toList());
     }
 
     public void setDesc(List<String> lines) {
