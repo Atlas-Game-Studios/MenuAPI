@@ -220,7 +220,7 @@ public class MenuPage implements Listener {
         if (clickItem == null || clickItem.getType() == Material.AIR) return;
 
         ClickType click = event.getClick();
-        if (click.equals(ClickType.NUMBER_KEY)) {
+        if (click.isKeyboardClick()) {
             event.setCancelled(true);
         }
 
