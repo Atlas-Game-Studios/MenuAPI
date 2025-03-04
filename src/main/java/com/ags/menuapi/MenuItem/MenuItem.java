@@ -153,7 +153,7 @@ public class MenuItem {
 
     public MenuItem highlight() {
         ItemMeta meta = item.getItemMeta();
-        meta.addEnchant(Enchantment.DURABILITY, 1, true);
+        meta.addEnchant(Enchantment.UNBREAKING, 1, true);
         meta.addItemFlags(ItemFlag.HIDE_ENCHANTS);
         item.setItemMeta(meta);
         return this;
@@ -161,7 +161,7 @@ public class MenuItem {
 
     public MenuItem unhighlight() {
         ItemMeta meta = item.getItemMeta();
-        meta.removeEnchant(Enchantment.DURABILITY);
+        meta.removeEnchant(Enchantment.UNBREAKING);
         item.setItemMeta(meta);
         return this;
     }
