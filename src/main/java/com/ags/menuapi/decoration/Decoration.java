@@ -4,7 +4,6 @@ import com.ags.atlaslib.util.NBTUtil;
 import com.ags.menuapi.Menu.MenuSize;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
-import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
@@ -72,7 +71,7 @@ public class Decoration {
         if (!mat.isAir()) {
             ItemMeta meta = item.getItemMeta();
             meta.displayName(Component.text(" "));
-            meta.addItemFlags(ItemFlag.HIDE_ITEM_SPECIFICS, ItemFlag.HIDE_ATTRIBUTES);
+            meta.setHideTooltip(true);
             item.setItemMeta(meta);
             NBTUtil.setTag(item, "menu", true);
         }

@@ -52,7 +52,7 @@ public class MenuItem {
     }
 
     public MenuItem(Material mat) {
-        this.item = new ItemStack(mat);
+        this(new ItemStack(mat));
     }
 
     public MenuItem(Material mat, String name) {
@@ -118,10 +118,10 @@ public class MenuItem {
         ItemMeta meta = this.item.getItemMeta();
         if (meta == null) return;
         if (name != null) meta.displayName(mm.deserialize(name));
+        if (meta.lore() != null && meta.lore().isEmpty()) meta.lore(null);
         if (lore != null) meta.lore(lore.stream().map(mm::deserialize).toList());
         if (model != null) meta.setCustomModelData(model);
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-        meta.addItemFlags(ItemFlag.HIDE_ITEM_SPECIFICS);
+        meta.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP);
         this.item.setItemMeta(meta);
         NBTUtil.setTag(item, "menu", true);
     }

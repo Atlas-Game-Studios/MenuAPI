@@ -78,9 +78,9 @@ public class ActionMenu extends Menu {
 
     public void handleItemClick(MenuPage page, ItemStack item, int slot, Player clicker, InventoryClickEvent event) {
         super.handleItemClick(page, item, slot, clicker, event);
-        if (actions.containsKey(item) && actions.get(item) != null) {
-            actions.get(item).action(page, clicker, event);
-        }
+        MenuItemAction action = actions.get(item);
+        if (action == null) return;
+        action.action(page, clicker, event);
     }
 
 }
