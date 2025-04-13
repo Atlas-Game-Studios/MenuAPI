@@ -6,9 +6,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 
-public final class MenuCloseEvent extends Event {
-    private static final HandlerList handlers = new HandlerList();
+public class MenuCloseEvent extends Event {
 
+    private static final HandlerList handlers = new HandlerList();
 
     private final Player player;
     private final Menu menu;

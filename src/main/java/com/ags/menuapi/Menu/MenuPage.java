@@ -228,28 +228,30 @@ public class MenuPage implements Listener {
         // Interact menus have many more rules to handle cursor items.
         if (!interacts.isEmpty()) {
 
+            //Cancel the event if the top inventory was clicked AND
+            //the item clicked is not in an interact slot
+            if (isTopInventory(event) && !isSlotInteractive(event)) {
+                event.setCancelled(true);
+            }
+
             // If we have an interact slot the menu will allow the player to shift+click without canceling
             // We handle that here by canceling the shift+click and directing it towards an interact slot.
             if (click.isShiftClick()) {
-                // For Top inventory, only cancel if it's not an interact slot
+                // For Top inventory, only cancel if it's not an interact slot (handled above)
                 // For Bottom, we need to create special rules to send items only to interact slots. So cancel immediately
-                if (isTopInventory(event)) {
-                    if (!isSlotInteractive(event)) event.setCancelled(true);
-                } else {
+                if (!isTopInventory(event)) {
                     // Two main behaviors:
                     // 1) Empty interact slot? Fill it
                     // 2) Half full interact slot with same item? Fill it and use left over to fill next slot if available
                     for (int slot : interacts.keySet()) {
                         ItemStack slotItem = inv.getItem(slot);
 
-                        // 1)
-                        if (slotItem == null || slotItem.getType().equals(Material.AIR)) {
+                        if (slotItem == null || slotItem.isEmpty()) {
+                            // If we can do a clean add, great, do it.
                             inv.setItem(slot, clickItem);
                             clickItem.setAmount(0);
                             break;
-                            // 2)
                         } else if (slotItem.isSimilar(clickItem)) {
-                            // If we can do a clean add, great, do it.
                             // If not, add what we can and go on to next interact slot
                             if (slotItem.getAmount() + clickItem.getAmount() <= slotItem.getMaxStackSize()) {
                                 slotItem.setAmount(slotItem.getAmount() + clickItem.getAmount());
@@ -263,12 +265,6 @@ public class MenuPage implements Listener {
                     }
                     event.setCancelled(true);
                 }
-            }
-
-            //Cancel the even if the top inventory was clicked AND
-            //the item clicked is not in an interact slot
-            if (isTopInventory(event) && !isSlotInteractive(event)) {
-                event.setCancelled(true);
             }
         } else {
             event.setCancelled(true);
