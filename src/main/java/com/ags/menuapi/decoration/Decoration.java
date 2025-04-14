@@ -1,6 +1,6 @@
 package com.ags.menuapi.decoration;
 
-import com.ags.atlaslib.util.NBTUtil;
+import com.ags.atlaslib.util.PDC;
 import com.ags.menuapi.Menu.MenuSize;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
@@ -72,8 +72,9 @@ public class Decoration {
             ItemMeta meta = item.getItemMeta();
             meta.displayName(Component.text(" "));
             meta.setHideTooltip(true);
+            meta.setCustomModelData(1);
             item.setItemMeta(meta);
-            NBTUtil.setTag(item, "menu", true);
+            PDC.set(item, "menu", true);
         }
         itemMap[slot] = item;
     }
