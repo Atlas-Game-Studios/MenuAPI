@@ -50,7 +50,7 @@
                             <relocations>
                                 <relocation>
                                     <pattern>com.ags.atlaslib</pattern>
-                                    <shadedPattern>com.ags.attributeapi.atlaslib</shadedPattern>
+                                    <shadedPattern>com.ags.menuapi.atlaslib</shadedPattern>
                                 </relocation>
                             </relocations>
                         </configuration>
