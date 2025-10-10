@@ -1,7 +1,12 @@
 package com.ags.menuapi.MenuItem;
 
+import com.ags.atlaslib.pdc.DataType;
 import com.ags.atlaslib.util.NBTUtil;
+import com.ags.atlaslib.util.PDC;
 import com.ags.menuapi.Menu.MenuPage;
+import io.papermc.paper.datacomponent.DataComponentTypes;
+import io.papermc.paper.datacomponent.item.CustomModelData;
+import io.papermc.paper.datacomponent.item.TooltipDisplay;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
@@ -14,6 +19,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 
@@ -121,9 +127,16 @@ public class MenuItem {
         if (meta.lore() != null && meta.lore().isEmpty()) meta.lore(null);
         if (lore != null) meta.lore(lore.stream().map(mm::deserialize).toList());
         if (model != null) meta.setCustomModelData(model);
-        meta.addItemFlags(ItemFlag.HIDE_ADDITIONAL_TOOLTIP);
         this.item.setItemMeta(meta);
-        NBTUtil.setTag(item, "menu", true);
+
+        this.item.setData(DataComponentTypes.TOOLTIP_DISPLAY,
+                TooltipDisplay.tooltipDisplay().hiddenComponents(Set.of(
+                        DataComponentTypes.ATTRIBUTE_MODIFIERS,
+                        DataComponentTypes.ENCHANTMENTS,
+                        DataComponentTypes.POTION_CONTENTS
+                )).build());
+
+        PDC.set(item, "menu", true, DataType.BOOLEAN);
     }
 
 

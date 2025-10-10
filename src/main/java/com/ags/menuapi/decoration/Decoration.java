@@ -1,5 +1,6 @@
 package com.ags.menuapi.decoration;
 
+import com.ags.atlaslib.pdc.DataType;
 import com.ags.atlaslib.util.PDC;
 import com.ags.menuapi.Menu.MenuSize;
 import net.kyori.adventure.text.Component;
@@ -74,7 +75,7 @@ public class Decoration {
             meta.setHideTooltip(true);
             meta.setCustomModelData(1);
             item.setItemMeta(meta);
-            PDC.set(item, "menu", true);
+            PDC.set(item, "menu", true,  DataType.BOOLEAN);
         }
         itemMap[slot] = item;
     }
