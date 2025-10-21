@@ -5,7 +5,6 @@ import com.ags.atlaslib.util.NBTUtil;
 import com.ags.atlaslib.util.PDC;
 import com.ags.menuapi.Menu.MenuPage;
 import io.papermc.paper.datacomponent.DataComponentTypes;
-import io.papermc.paper.datacomponent.item.CustomModelData;
 import io.papermc.paper.datacomponent.item.TooltipDisplay;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -133,7 +132,10 @@ public class MenuItem {
                 TooltipDisplay.tooltipDisplay().hiddenComponents(Set.of(
                         DataComponentTypes.ATTRIBUTE_MODIFIERS,
                         DataComponentTypes.ENCHANTMENTS,
-                        DataComponentTypes.POTION_CONTENTS
+                        DataComponentTypes.POTION_CONTENTS,
+                        DataComponentTypes.BANNER_PATTERNS,
+                        DataComponentTypes.WRITTEN_BOOK_CONTENT,
+                        DataComponentTypes.WRITABLE_BOOK_CONTENT
                 )).build());
 
         PDC.set(item, "menu", true, DataType.BOOLEAN);
