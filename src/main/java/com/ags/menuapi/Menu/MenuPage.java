@@ -217,7 +217,7 @@ public class MenuPage implements Listener {
         ItemStack clickItem = event.getCurrentItem();
 
         // verify current item is not null
-        if (clickItem == null || clickItem.getType().isEmpty()) return;
+        if (clickItem == null || clickItem.getType().isAir()) return;
 
         ClickType click = event.getClick();
         if (click.isKeyboardClick()) {
