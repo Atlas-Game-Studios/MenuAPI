@@ -3,6 +3,7 @@ package com.ags.menuapi.Menu;
 import com.ags.menuapi.MenuItem.MenuItem;
 import com.ags.menuapi.addons.*;
 import com.ags.menuapi.decoration.Decoration;
+import lombok.Getter;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -19,9 +20,9 @@ public abstract class Menu {
 
     public String name;
     public String unicode;
-    public int size;
+    @Getter public int size;
     public MenuSize menusize;
-    public List<MenuPage> pages;
+    @Getter public List<MenuPage> pages;
 
     private ClickSound clickSound;
 
@@ -36,10 +37,6 @@ public abstract class Menu {
 
     public MenuSize getMenuSize() {
         return menusize;
-    }
-
-    public int getSize() {
-        return size;
     }
 
     public ClickSound getClickSound() {

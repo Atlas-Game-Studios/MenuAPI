@@ -8,6 +8,7 @@ import com.ags.menuapi.decoration.Decoration;
 import com.ags.menuapi.events.MenuCloseEvent;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -29,7 +30,7 @@ public class MenuPage implements Listener {
     private final Inventory inv;
     private final int pagenumber;
     private final Set<Integer> decorationSlots;
-    private final HashBiMap<Integer, MenuItem> items;
+    @Getter private final HashBiMap<Integer, MenuItem> items;
     private final HashBiMap<Integer, MenuItem> interacts;
     private final Menu holder;
 
