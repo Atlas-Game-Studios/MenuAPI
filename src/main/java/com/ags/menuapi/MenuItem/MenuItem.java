@@ -128,15 +128,17 @@ public class MenuItem {
         if (model != null) meta.setCustomModelData(model);
         this.item.setItemMeta(meta);
 
-        this.item.setData(DataComponentTypes.TOOLTIP_DISPLAY,
-                TooltipDisplay.tooltipDisplay().hiddenComponents(Set.of(
-                        DataComponentTypes.ATTRIBUTE_MODIFIERS,
-                        DataComponentTypes.ENCHANTMENTS,
-                        DataComponentTypes.POTION_CONTENTS,
-                        DataComponentTypes.BANNER_PATTERNS,
-                        DataComponentTypes.WRITTEN_BOOK_CONTENT,
-                        DataComponentTypes.WRITABLE_BOOK_CONTENT
-                )).build());
+        if (!meta.isHideTooltip()) {
+            this.item.setData(DataComponentTypes.TOOLTIP_DISPLAY,
+                    TooltipDisplay.tooltipDisplay().hiddenComponents(Set.of(
+                            DataComponentTypes.ATTRIBUTE_MODIFIERS,
+                            DataComponentTypes.ENCHANTMENTS,
+                            DataComponentTypes.POTION_CONTENTS,
+                            DataComponentTypes.BANNER_PATTERNS,
+                            DataComponentTypes.WRITTEN_BOOK_CONTENT,
+                            DataComponentTypes.WRITABLE_BOOK_CONTENT
+                    )).build());
+        }
 
         PDC.set(item, "menu", true, DataType.BOOLEAN);
     }
