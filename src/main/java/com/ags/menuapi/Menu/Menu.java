@@ -18,7 +18,7 @@ public abstract class Menu {
 
     protected JavaPlugin plugin;
 
-    protected String name;
+    public String name;
     protected String unicode;
     @Getter protected int size;
     protected MenuSize menusize;
