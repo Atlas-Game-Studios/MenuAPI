@@ -16,18 +16,18 @@ import java.util.Map;
 
 public abstract class Menu {
 
-    public JavaPlugin plugin;
+    protected JavaPlugin plugin;
 
-    public String name;
-    public String unicode;
-    @Getter public int size;
-    public MenuSize menusize;
-    @Getter public List<MenuPage> pages;
+    protected String name;
+    protected String unicode;
+    @Getter protected int size;
+    protected MenuSize menusize;
+    @Getter protected List<MenuPage> pages;
 
     private ClickSound clickSound;
 
-    public boolean overrideDecoration = true;
-    public Decoration decoration;
+    protected boolean overrideDecoration = true;
+    protected Decoration decoration;
 
     private BackButton backButton;
     private NextButton nextButton;
