@@ -7,6 +7,7 @@ import io.papermc.paper.registry.data.dialog.ActionButton;
 import io.papermc.paper.registry.data.dialog.DialogBase;
 import io.papermc.paper.registry.data.dialog.action.DialogAction;
 import io.papermc.paper.registry.data.dialog.body.DialogBody;
+import io.papermc.paper.registry.data.dialog.input.DialogInput;
 import io.papermc.paper.registry.data.dialog.type.DialogType;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickCallback;
@@ -14,6 +15,7 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
 import java.util.function.Consumer;
 
 /**
@@ -57,6 +59,41 @@ public final class Dialogs {
     /** Body paragraphs, one per line. */
     public static List<DialogBody> text(List<String> lines) {
         return lines.stream().map(line -> (DialogBody) DialogBody.plainMessage(MessageUtil.convertMsg(line), 300)).toList();
+    }
+
+    /** Buttons in columns with an exit button under them (Escape also closes). body may be empty. */
+    public static void menu(Player player, Component title, List<? extends DialogBody> body, List<ActionButton> buttons,
+                            ActionButton exit, int columns) {
+        player.showDialog(Dialog.create(factory -> factory.empty()
+                .base(DialogBase.builder(title).canCloseWithEscape(true).body(body).build())
+                .type(DialogType.multiAction(buttons, exit, columns))));
+    }
+
+    /** Read-only dialog with one button; a null button is the client's plain OK. */
+    public static void notice(Player player, Component title, List<? extends DialogBody> body, ActionButton button) {
+        player.showDialog(Dialog.create(factory -> factory.empty()
+                .base(DialogBase.builder(title).canCloseWithEscape(true).body(body).build())
+                .type(button == null ? DialogType.notice() : DialogType.notice(button))));
+    }
+
+    /**
+     * One-line text prompt with Confirm/Cancel. onConfirm gets the text and returns null when done, or the text to
+     * reopen the prompt with (for example a corrected amount). Cancel and Escape just close.
+     */
+    public static void textInput(Player player, String title, String initial, BiFunction<Player, String, String> onConfirm) {
+        Dialog dialog = Dialog.create(factory -> factory.empty()
+                .base(DialogBase.builder(MessageUtil.convertMsg(title))
+                        .canCloseWithEscape(true)
+                        .inputs(List.of(DialogInput.text("text", Component.empty()).initial(initial).labelVisible(false).build()))
+                        .build())
+                .type(DialogType.confirmation(
+                        button("<green>Confirm", null, 150, (view, p) -> {
+                            String retry = onConfirm.apply(p, view.getText("text"));
+                            if (retry != null) textInput(p, title, retry, onConfirm);
+                        }),
+                        button("<gray>Cancel", null, 150, p -> {
+                        }))));
+        player.showDialog(dialog);
     }
 
     /** Yes/Cancel dialog. Cancel runs onCancel; Escape just closes. */
