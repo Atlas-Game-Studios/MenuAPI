@@ -8,6 +8,7 @@ import io.papermc.paper.registry.data.dialog.DialogBase;
 import io.papermc.paper.registry.data.dialog.action.DialogAction;
 import io.papermc.paper.registry.data.dialog.body.DialogBody;
 import io.papermc.paper.registry.data.dialog.type.DialogType;
+import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickCallback;
 import org.bukkit.entity.Player;
 
@@ -39,6 +40,17 @@ public final class Dialogs {
                     if (audience instanceof Player player) onClick.accept(view, player);
                 }, ONCE));
         if (tooltip != null) builder.tooltip(MessageUtil.convertMsg(tooltip));
+        return builder.build();
+    }
+
+    /** A button with a ready-made label (for example Drawn.onPlaque). tooltip may be null. */
+    public static ActionButton button(Component label, Component tooltip, int width, Consumer<Player> onClick) {
+        ActionButton.Builder builder = ActionButton.builder(label)
+                .width(width)
+                .action(DialogAction.customClick((response, audience) -> {
+                    if (audience instanceof Player player) onClick.accept(player);
+                }, ONCE));
+        if (tooltip != null) builder.tooltip(tooltip);
         return builder.build();
     }
 
